@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,7 +26,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
-   ImageButton sign_in;
+    ImageButton Adminsign_in;
+    ImageButton Facultysign_in;
     ProgressBar progressBar;
     private int RC_SIGN_IN=1;
     GoogleSignInClient mGoogleSignInClient;
@@ -50,18 +50,20 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
 
-        sign_in=findViewById(R.id.imageButton);
+        Adminsign_in =findViewById(R.id.imageButtonAdminsign_in);
         mAuth=FirebaseAuth.getInstance();
-        sign_in.setOnClickListener(new View.OnClickListener() {
+        Adminsign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               progressBar.setVisibility(View.VISIBLE);
                 signIn();
             }
         });
+        Facultysign_in= findViewById(R.id.imageButtonFacultysign_in);
     }
     private void signIn() {
-        sign_in.setVisibility(View.GONE);
+        Adminsign_in.setVisibility(View.GONE);
+        Facultysign_in.setVisibility(View.GONE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -96,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            startActivity(new Intent(LoginActivity.this,AdminMainActivity.class));
                             finish();
 
                         } else {
