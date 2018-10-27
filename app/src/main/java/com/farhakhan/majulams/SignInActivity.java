@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,20 +25,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
-    ImageButton Adminsign_in;
-    ImageButton Facultysign_in;
+    ImageButton ibAdminSignIn;
+    ImageButton ibFacultySignIn;
     ProgressBar progressBar;
+    TextView note;
     private int RC_SIGN_IN=1;
     GoogleSignInClient mGoogleSignInClient;
-    private String TAG="LoginActivity";
+    private String TAG="SignInActivity";
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_in);
 
         progressBar=findViewById(R.id.login_progress);
         progressBar.setVisibility(View.INVISIBLE);
@@ -50,20 +52,23 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
 
-        Adminsign_in =findViewById(R.id.imageButtonAdminsign_in);
+        ibAdminSignIn =findViewById(R.id.imageButtonAdminSignIn);
+        ibFacultySignIn= findViewById(R.id.imageButtonFacultySignIn);
+        note= findViewById(R.id.txt_note);
         mAuth=FirebaseAuth.getInstance();
-        Adminsign_in.setOnClickListener(new View.OnClickListener() {
+        ibAdminSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               progressBar.setVisibility(View.VISIBLE);
                 signIn();
+
             }
         });
-        Facultysign_in= findViewById(R.id.imageButtonFacultysign_in);
     }
     private void signIn() {
-        Adminsign_in.setVisibility(View.GONE);
-        Facultysign_in.setVisibility(View.GONE);
+        ibAdminSignIn.setVisibility(View.GONE);
+        ibFacultySignIn.setVisibility(View.GONE);
+        note.setVisibility(View.GONE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -98,13 +103,13 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             progressBar.setVisibility(View.GONE);
-                            startActivity(new Intent(LoginActivity.this,AdminMainActivity.class));
+                            startActivity(new Intent(SignInActivity.this,AdminMainActivity.class));
                             finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this,"Authentication Failed",Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this,"Authentication Failed",Toast.LENGTH_LONG).show();
                             updateUI(null);
                             progressBar.setVisibility(View.GONE);
                         }

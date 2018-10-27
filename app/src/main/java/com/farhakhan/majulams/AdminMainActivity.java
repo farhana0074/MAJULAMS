@@ -1,6 +1,8 @@
 package com.farhakhan.majulams;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,17 +18,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private String mUsername;
     private String mPhotoUrl;
     public CircleImageView cmi;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -34,8 +43,13 @@ public class AdminMainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
-        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this,this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar_admin);
         setSupportActionBar(toolbar);
@@ -49,21 +63,21 @@ public class AdminMainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view_admin);
         navigationView.setNavigationItemSelectedListener(this);
         View headerview = navigationView.getHeaderView(0);
+
         if (mFirebaseUser != null) {
             mUsername = mFirebaseUser.getDisplayName();
             if (mFirebaseUser.getPhotoUrl() != null)
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             cmi = headerview.findViewById(R.id.user_pic_admin);
-            TextView txt_name = headerview.findViewById(R.id.user_name_admin);
+           TextView txt_name = headerview.findViewById(R.id.user_name_admin);
             txt_name.setText(mFirebaseUser.getDisplayName());
-            TextView txt_email = headerview.findViewById(R.id.user_email_admin);
+           TextView txt_email = headerview.findViewById(R.id.user_email_admin);
             txt_email.setText(mFirebaseUser.getEmail());
             Glide.with(AdminMainActivity.this)
                     .load(mPhotoUrl)
                     .apply(new RequestOptions().override(100,100))
                     .apply(new RequestOptions().centerCrop())
                     .into(cmi);
-
         }
     }
 
@@ -92,7 +106,14 @@ public class AdminMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_log_out) {
+            FirebaseAuth.getInstance().signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            mPhotoUrl=null;
+            mUsername=null;
+            mFirebaseUser=null;
+            startActivity(new Intent(AdminMainActivity.this, SignInActivity.class));
+            finish();
             return true;
         }
 
@@ -125,5 +146,10 @@ public class AdminMainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout_admin);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

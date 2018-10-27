@@ -23,7 +23,6 @@
             android:layout_width="92dp"
             android:layout_height="92dp"
             android:layout_gravity="center"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:src="@color/DarkGray"
             app:civ_border_color="@color/Black"
             app:civ_border_width="2dp" />
@@ -31,10 +30,10 @@
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="76dp"
             android:layout_gravity="center"
-            android:paddingLeft="60dp"
             android:contentDescription="@string/nav_header_desc"
+            android:paddingLeft="60dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             app:srcCompat="@mipmap/logo" />
 
