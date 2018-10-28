@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton ibAdminSignIn;
     ImageButton ibFacultySignIn;
@@ -35,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private String TAG="SignInActivity";
     private FirebaseAuth mAuth;
+    int i, j,k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +57,9 @@ public class SignInActivity extends AppCompatActivity {
         ibFacultySignIn= findViewById(R.id.imageButtonFacultySignIn);
         note= findViewById(R.id.txt_note);
         mAuth=FirebaseAuth.getInstance();
-        ibAdminSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              progressBar.setVisibility(View.VISIBLE);
-                signIn();
+        ibAdminSignIn.setOnClickListener(this);
+        ibFacultySignIn.setOnClickListener(this);
 
-            }
-        });
     }
     private void signIn() {
         ibAdminSignIn.setVisibility(View.GONE);
@@ -103,8 +99,10 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                             progressBar.setVisibility(View.GONE);
+                            if (k==i)
                             startActivity(new Intent(SignInActivity.this,AdminMainActivity.class));
-                            finish();
+                            else if (k==j)
+                                startActivity(new Intent(SignInActivity.this, FacultyMainActivity.class));
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -128,5 +126,25 @@ public class SignInActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(),"welcome "+ person_name, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.imageButtonAdminSignIn:
+                progressBar.setVisibility(View.VISIBLE);
+                signIn();
+                i= v.getId();
+                break;
+
+            case R.id.imageButtonFacultySignIn:
+                progressBar.setVisibility(View.VISIBLE);
+                signIn();
+                j=v.getId();
+                break;
+
+        }
+        k=v.getId();
     }
 }
