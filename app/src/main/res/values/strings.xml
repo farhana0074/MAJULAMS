@@ -8,6 +8,8 @@
     <string name="action_sign_out" translatable="false">Sign out</string>
     <string name="logo" translatable="false">Logo</string>
     <string name="Sign_in_note" translatable="false">You can Sign in with your MAJU Email ID</string>
+    <string name="Adm_invalid_Sign_in_note" translatable="false">You can Sign in with your MAJU Email ID for Administrators only</string>
+    <string name="Emp_invalid_Sign_in_note" translatable="false">You can Sign in with your MAJU Email ID for Employees only</string>
     <string name="label_admin" translatable="false">Administrator</string>
     <string name="label_hod" translatable="false">HoD</string>
     <string name="label_faculty" translatable="false">Faculty</string>
