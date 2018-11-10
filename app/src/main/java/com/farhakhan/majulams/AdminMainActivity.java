@@ -127,7 +127,7 @@ public class AdminMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Fragment admin = new Admin_Main();
+            Fragment admin = new AdminMainFragment();
             FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.container_admin, admin)
                     .addToBackStack(null).commit();

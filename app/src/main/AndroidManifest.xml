@@ -21,7 +21,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminMainActivity"
-            android:label="@string/label_admin"
+            android:label="Administrator"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".FacultyMainActivity"

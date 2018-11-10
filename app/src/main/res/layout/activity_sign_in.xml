@@ -37,14 +37,14 @@
             app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
         <ImageButton
-            android:id="@+id/imageButtonFacultySignIn"
+            android:id="@+id/imageButtonEmployeeSignIn"
             android:layout_width="202dp"
             android:layout_height="54dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/login_btn_bkg"
-            android:contentDescription="FacultyLogin"
+            android:contentDescription="EmployeeLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageButtonAdminSignIn"

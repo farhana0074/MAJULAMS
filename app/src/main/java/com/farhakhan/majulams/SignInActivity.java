@@ -3,7 +3,6 @@ package com.farhakhan.majulams;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.farhakhan.majulams.model_classes.EmpFacDepDom;
+import com.farhakhan.majulams.model_classes.UserNamePic;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,6 +36,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignInActivity extends AppCompatActivity implements
         View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -48,8 +53,8 @@ public class SignInActivity extends AppCompatActivity implements
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDb;
     private DatabaseReference mDbReference;
-    int id_imgbtn_adm, id_imgbtn_fac, id_imgbtn;
-    String person_email, person_name;
+    int id_imgbtn_adm, id_imgbtn_emp, id_imgbtn;
+    String person_email, person_name, person_pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,10 @@ public class SignInActivity extends AppCompatActivity implements
                 .requestEmail()
                 .build();
 
+
+
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -74,7 +83,7 @@ public class SignInActivity extends AppCompatActivity implements
 
         note= findViewById(R.id.txt_note);
         ibAdminSignIn =findViewById(R.id.imageButtonAdminSignIn);
-        ibFacultySignIn= findViewById(R.id.imageButtonFacultySignIn);
+        ibFacultySignIn= findViewById(R.id.imageButtonEmployeeSignIn);
         ibAdminSignIn.setOnClickListener(this);
         ibFacultySignIn.setOnClickListener(this);
         mAuth=FirebaseAuth.getInstance();
@@ -166,7 +175,7 @@ public class SignInActivity extends AppCompatActivity implements
                                             public void onCancelled(@NonNull DatabaseError databaseError) { }
                                         });
                             }
-                            if (id_imgbtn ==id_imgbtn_fac)
+                            if (id_imgbtn == id_imgbtn_emp)
                                 mDbReference.child("Users").child("Faculty")
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -174,8 +183,42 @@ public class SignInActivity extends AppCompatActivity implements
                                         progressBar.setVisibility(View.INVISIBLE);
                                         if(dataSnapshot.hasChild(person_email)) {
                                             Toast.makeText(getApplicationContext(),"welcome "+ person_name, Toast.LENGTH_LONG).show();
-                                            startActivity(new Intent(SignInActivity.this, FacultyMainActivity.class));
-                                            finish();
+
+                                            mDbReference.child("Users").child("Faculty").child(person_email).addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                               if (dataSnapshot1 != null && dataSnapshot1.getValue() != null)
+                                               {
+                                                   final EmpFacDepDom empFacDepDom = dataSnapshot1.getValue(EmpFacDepDom.class);
+                                                   final String empFaculty = empFacDepDom.Faculty;
+                                                   String empDepartment= empFacDepDom.Department;
+                                                   String empDomain= empFacDepDom.Domain;
+                                                   UserNamePic mUserNamePic = new UserNamePic(person_name, person_pic);
+
+                                                   Map<String, Object> values = mUserNamePic.toMap();
+                                                   Map<String, Object> childUpdates = new HashMap<>();
+                                                   childUpdates.put("UserInfo", values);
+
+                                                   mDbReference.child(empFaculty).child(empDepartment).child(empDomain)
+                                                           .child(person_email).updateChildren(childUpdates);
+                                                   Bundle bundle = new Bundle();
+                                                   bundle.putString("EmailID", person_email);
+                                                   bundle.putString("Picture", person_pic);
+                                                   bundle.putString("Name", person_name);
+                                                   bundle.putString("Faculty", empFaculty);
+                                                   bundle.putString("Department", empDepartment);
+                                                   bundle.putString("Domain", empDomain);
+                                                   Intent intent= new Intent(SignInActivity.this, FacultyMainActivity.class);
+                                                   intent.putExtras(bundle);
+                                                   startActivity(intent);
+                                                   finish();
+                                               }
+                                                }
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
                                         }
                                         else
                                         {
@@ -245,8 +288,7 @@ public class SignInActivity extends AppCompatActivity implements
         {
             person_name= account.getDisplayName();
             person_email=account.getEmail();
-            String person_id = account.getId();
-            Uri person_pic= account.getPhotoUrl();
+            person_pic= account.getPhotoUrl().toString();
                }
     }
 
@@ -260,10 +302,10 @@ public class SignInActivity extends AppCompatActivity implements
                 id_imgbtn_adm= v.getId();
                 break;
 
-            case R.id.imageButtonFacultySignIn:
+            case R.id.imageButtonEmployeeSignIn:
                 progressBar.setVisibility(View.VISIBLE);
                 signIn();
-                id_imgbtn_fac=v.getId();
+                id_imgbtn_emp =v.getId();
                 break;
         }
         id_imgbtn =v.getId();
@@ -285,4 +327,5 @@ public class SignInActivity extends AppCompatActivity implements
         ibFacultySignIn.setVisibility(View.VISIBLE);
         note.setVisibility(View.VISIBLE);
     }
-}
+
+    }
