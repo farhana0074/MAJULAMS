@@ -1,10 +1,10 @@
 package com.farhakhan.majulams;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,15 +27,22 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
 public class FacultyMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private String mUsername;
-    private String mPhotoUrl;
-    public CircleImageView cmi;
+    public String person_email, person_name, person_pic;
+    public String strDate, strDay;
+    public String empFaculty, empDepartment, empDomain;
+    public CircleImageView NavCmi;
+    public CircleImageView MainCmi;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private GoogleApiClient mGoogleApiClient;
@@ -43,57 +51,123 @@ public class FacultyMainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_main);
+        Intent intent = getIntent();
+        if (intent != null) {
+            person_email = intent.getStringExtra("EmailID");
+            person_email=person_email.replace(",",".");
+            person_name = intent.getStringExtra("Name");
+            person_pic = intent.getStringExtra("Picture");
+            empFaculty = intent.getStringExtra("Faculty");
+            empDepartment = intent.getStringExtra("Department");
+            empDomain = intent.getStringExtra("Domain");
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
-                .enableAutoManage(this,this)
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy ");
+            strDate = dateFormat.format(calendar.getTime());
+            TextView txt_date= findViewById(R.id.Faculty_Date);
+            txt_date.setText(strDate);
+            SimpleDateFormat day = new SimpleDateFormat("EEEE");
+            strDay=day.format(calendar.getTime());
+            TextView txt_day = findViewById(R.id.Faculty_Day);
+            txt_day.setText(strDay);
+
+            mFirebaseAuth = FirebaseAuth.getInstance();
+            mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
+            MainCmi = findViewById(R.id.user_pic_faculty);
+            Glide.with(FacultyMainActivity.this)
+                    .load(person_pic)
+                    .apply(new RequestOptions().override(100, 100))
+                    .apply(new RequestOptions().centerCrop())
+                    .into(MainCmi);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            TextView tvName = findViewById(R.id.txt_FName);
+            tvName.setText(person_name);
+            TextView tvFaculty = findViewById(R.id.txt_FFac);
+            if(empFaculty.equals("FOCE")) {
+                String foce = "Faculty of Computing & Engineering";
+                tvFaculty.setText(foce);
+            }
+            else if (empFaculty.equals("FOLS"))
+            {
+                String fols= "Faculty of Life Sciences";
+                tvFaculty.setText(fols);
+            }
+            else
+            {
+                String foba= "Faculty of Business Administration";
+                tvFaculty.setText(foba);
+            }
+            TextView tvDepartment = findViewById(R.id.txt_FDep);
+            tvDepartment.setText("Department of "+ empDepartment);
+
+            final FabSpeedDial fabSpeedDial = findViewById(R.id.fab_speed_dial);
+            final FrameLayout frameLayout= findViewById(R.id.fab_bkg);
+               fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+
+                @Override
+                public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                       frameLayout.setBackgroundColor(getResources().getColor(R.color.TransparentWhite));
+                   return super.onPrepareMenu(navigationMenu);
+                }
+
+                   @Override
+                   public void onMenuClosed() {
+                    frameLayout.setBackgroundColor(Color.TRANSPARENT);
+                       super.onMenuClosed();
+                   }
+
+                   @Override
+                public boolean onMenuItemSelected(MenuItem menuItem) {
+                    int itemId= menuItem.getItemId();
+                    if(itemId==R.id.half_leave)
+                    {
+
+                    }
+                    else if (itemId==R.id.full_leave)
+                    {
+
+                    }
+                    else if (itemId==R.id.leave_without_pay)
+                    {
+
+                    }
+                    return false;
+                }
+            });
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerview = navigationView.getHeaderView(0);
 
-        if (mFirebaseUser != null) {
-            mUsername = mFirebaseUser.getDisplayName();
-            if (mFirebaseUser.getPhotoUrl() != null)
-                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-            cmi = headerview.findViewById(R.id.user_pic_admin);
-            TextView txt_name = headerview.findViewById(R.id.user_name_admin);
-            txt_name.setText(mFirebaseUser.getDisplayName());
-            TextView txt_email = headerview.findViewById(R.id.user_email_admin);
-            txt_email.setText(mFirebaseUser.getEmail());
+            NavCmi = headerview.findViewById(R.id.user_pic_faculty);
+            TextView txt_name = headerview.findViewById(R.id.user_name_faculty);
+            txt_name.setText(person_name);
+            TextView txt_email = headerview.findViewById(R.id.user_email_faculty);
+            txt_email.setText(person_email);
             Glide.with(FacultyMainActivity.this)
-                    .load(mPhotoUrl)
-                    .apply(new RequestOptions().override(100,100))
+                    .load(person_pic)
+                    .apply(new RequestOptions().override(100, 100))
                     .apply(new RequestOptions().centerCrop())
-                    .into(cmi);
-        }
-    }
+                    .into(NavCmi);
 
+    }
+}
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -119,9 +193,9 @@ public class FacultyMainActivity extends AppCompatActivity
         if (id == R.id.action_log_out) {
             FirebaseAuth.getInstance().signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-            mPhotoUrl=null;
-            mUsername=null;
-            mFirebaseUser=null;
+            person_email=null;
+            person_name=null;
+            person_pic=null;
             startActivity(new Intent(FacultyMainActivity.this, SignInActivity.class));
             finish();
             return true;
@@ -153,7 +227,7 @@ public class FacultyMainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

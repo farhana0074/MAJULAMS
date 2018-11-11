@@ -7,4 +7,5 @@
     <color name="LightGray">#afacac</color>
     <color name="White">#ffffff</color>
     <color name="Black">#000000</color>
+    <color name="TransparentWhite">#a7ffffff</color>
 </resources>

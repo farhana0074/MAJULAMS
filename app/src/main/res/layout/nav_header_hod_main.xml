@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_pic_admin"
+            android:id="@+id/user_pic_faculty"
             android:layout_width="92dp"
             android:layout_height="92dp"
             android:layout_gravity="center"
@@ -41,7 +41,7 @@
 
 
     <TextView
-        android:id="@+id/user_name_admin"
+        android:id="@+id/user_name_faculty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -49,7 +49,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/user_email_admin"
+        android:id="@+id/user_email_faculty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nav_header_subtitle" />

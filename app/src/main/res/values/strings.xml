@@ -13,4 +13,5 @@
     <string name="label_admin" translatable="false">Administrator</string>
     <string name="label_hod" translatable="false">HoD</string>
     <string name="label_faculty" translatable="false">Faculty</string>
+
 </resources>

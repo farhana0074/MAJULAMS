@@ -13,7 +13,7 @@
         android:background="@color/White">
 
         <TextView
-            android:id="@+id/Admin_Date"
+            android:id="@+id/Faculty_Date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Admin_Day"
+            android:id="@+id/Faculty_Day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/Admin_Date"
+            app:layout_constraintStart_toEndOf="@+id/Faculty_Date"
             app:layout_constraintTop_toTopOf="parent">
 
         </TextView>

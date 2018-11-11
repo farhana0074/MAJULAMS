@@ -68,10 +68,10 @@ public class AdminMainActivity extends AppCompatActivity
             mUsername = mFirebaseUser.getDisplayName();
             if (mFirebaseUser.getPhotoUrl() != null)
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
-            cmi = headerview.findViewById(R.id.user_pic_admin);
-           TextView txt_name = headerview.findViewById(R.id.user_name_admin);
+            cmi = headerview.findViewById(R.id.user_pic_faculty);
+           TextView txt_name = headerview.findViewById(R.id.user_name_faculty);
             txt_name.setText(mFirebaseUser.getDisplayName());
-           TextView txt_email = headerview.findViewById(R.id.user_email_admin);
+           TextView txt_email = headerview.findViewById(R.id.user_email_faculty);
             txt_email.setText(mFirebaseUser.getEmail());
             Glide.with(AdminMainActivity.this)
                     .load(mPhotoUrl)

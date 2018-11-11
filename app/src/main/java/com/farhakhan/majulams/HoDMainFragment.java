@@ -20,11 +20,11 @@ public class HoDMainFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy ");
         String strDate = dateFormat.format(calendar.getTime());
-        TextView txt_date= view.findViewById(R.id.Admin_Date);
+        TextView txt_date= view.findViewById(R.id.Faculty_Date);
         txt_date.setText(strDate);
         SimpleDateFormat day = new SimpleDateFormat("EEEE");
         String strDay=day.format(calendar.getTime());
-        TextView txt_day = view.findViewById(R.id.Admin_Day);
+        TextView txt_day = view.findViewById(R.id.Faculty_Day);
         txt_day.setText(strDay);
         return view;
     }
