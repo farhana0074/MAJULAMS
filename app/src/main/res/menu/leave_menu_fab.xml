@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/half_leave"
+        android:icon="@drawable/clock"
+        android:title="Half Leave"
+        android:orderInCategory="0"/>
+    <item
+        android:id="@+id/full_leave"
+        android:icon="@drawable/calendar"
+        android:title="Full Leave"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/leave_without_pay"
+        android:icon="@drawable/paid"
+        android:title="Leave without Pay"
+        android:orderInCategory="2"/>
+</menu>
