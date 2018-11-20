@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,20 +7,21 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".FacultyMainActivity"
     android:background="@color/White"
-    android:orientation="vertical"
+    android:id="@+id/container_faculty"
     tools:showIn="@layout/app_bar_faculty_main">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White"
-        android:id="@+id/container_faculty">
+        android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="match_parent"
-            android:background="@color/White">
+            android:layout_marginTop="10dp"
+            android:background="@color/White"
+            android:paddingBottom="30dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_pic_faculty"
@@ -45,7 +46,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Name"
                 android:textColor="@color/Black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,8 +59,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Faculty"
-                android:textColor="@color/DarkGray"
-                android:textSize="15sp"
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
@@ -73,7 +74,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Department"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,13 +87,278 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Designation"
-                android:textColor="@color/DarkGray"
-                android:textSize="15sp"
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_FDep" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/Black"
+                android:padding="5dip"
+                android:text="Leaves Status"
+                android:textAlignment="center"
+                android:textColor="@color/White"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_FDesig" />
+
+            <TextView
+                android:id="@+id/tv_hd_hl"
+                android:layout_width="115dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center_vertical"
+                android:text="Half Leaves"
+                android:textAlignment="center"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <TextView
+                android:id="@+id/hl_total"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:gravity="center_vertical"
+                android:paddingStart="25dip"
+                android:text="Total Half Leaves: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hd_hl" />
+
+            <TextView
+                android:id="@+id/fl_total"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:gravity="center_vertical"
+                android:paddingStart="25dp"
+                android:text="Total Full Leaves: "
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hd_fl" />
+
+            <TextView
+                android:id="@+id/sl_total"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:gravity="center_vertical"
+                android:paddingStart="25dip"
+                android:text="Total Summer Leaves: "
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hd_sl" />
+
+            <TextView
+                android:id="@+id/pl_total"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:gravity="center_vertical"
+                android:paddingStart="25dip"
+                android:text="Total Leaves Without Pay: "
+                android:textColor="@color/DarkerGray"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hd_pl" />
+
+            <TextView
+                android:id="@+id/tv_hd_fl"
+                android:layout_width="115dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:text="Full Leaves"
+                android:textAlignment="center"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hl_total" />
+
+            <TextView
+                android:id="@+id/tv_hd_sl"
+                android:layout_width="115dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/colorAccent"
+                android:gravity="center_vertical"
+                android:text="Summer    Leaves"
+                android:textAlignment="center"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pl_total" />
+
+            <TextView
+                android:id="@+id/tv_hd_pl"
+                android:layout_width="115dp"
+                android:layout_height="69dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/DarkerGray"
+                android:gravity="center_vertical"
+                android:text="Leaves     Without Pay"
+                android:textAlignment="center"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_total" />
+
+            <TextView
+                android:id="@+id/hl_rem"
+                android:layout_width="253dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Remaining: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_hl"
+                app:layout_constraintTop_toTopOf="@+id/tv_hd_hl" />
+
+            <TextView
+                android:id="@+id/fl_rem"
+                android:layout_width="253dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Remaining: "
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_fl"
+                app:layout_constraintTop_toTopOf="@+id/tv_hd_fl" />
+
+            <TextView
+                android:id="@+id/sl_rem"
+                android:layout_width="253dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Remaining: "
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_sl"
+                app:layout_constraintTop_toTopOf="@+id/tv_hd_sl" />
+
+            <TextView
+                android:id="@+id/pl_rem"
+                android:layout_width="253dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Remaining: "
+                android:textColor="@color/DarkerGray"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_pl"
+                app:layout_constraintTop_toTopOf="@+id/tv_hd_pl" />
+
+            <TextView
+                android:id="@+id/hl_avld"
+                android:layout_width="253dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Availed: "
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_hl"
+                app:layout_constraintTop_toBottomOf="@+id/hl_rem" />
+
+            <TextView
+                android:id="@+id/fl_avld"
+                android:layout_width="253dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Availed: "
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_fl"
+                app:layout_constraintTop_toBottomOf="@+id/fl_rem" />
+
+            <TextView
+                android:id="@+id/sl_avld"
+                android:layout_width="253dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="8dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Availed: "
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_sl"
+                app:layout_constraintTop_toBottomOf="@+id/sl_rem" />
+
+            <TextView
+                android:id="@+id/pl_avld"
+                android:layout_width="253dp"
+                android:layout_height="33dp"
+                android:padding="5dip"
+                android:paddingStart="15dip"
+                android:text="Availed: "
+                android:textColor="@color/DarkerGray"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_hd_pl"
+                app:layout_constraintTop_toBottomOf="@+id/pl_rem" />
+
         </android.support.constraint.ConstraintLayout>
 
-    </FrameLayout>
-</ScrollView>
+    </ScrollView>
+</FrameLayout>

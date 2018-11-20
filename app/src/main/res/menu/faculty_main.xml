@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_log_out"
-        android:orderInCategory="100"
+        android:orderInCategory="0"
         android:title="@string/action_sign_out"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_log"
+        android:orderInCategory="1"
+        android:title="abc"
         app:showAsAction="never" />
 </menu>

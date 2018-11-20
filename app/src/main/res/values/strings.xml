@@ -13,5 +13,8 @@
     <string name="label_admin" translatable="false">Administrator</string>
     <string name="label_hod" translatable="false">HoD</string>
     <string name="label_faculty" translatable="false">Faculty</string>
+    <string name="leave_without_pay_note" translatable="false">By applying for this kind of leave you agree that you are not entitled to get paid for the leave days</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

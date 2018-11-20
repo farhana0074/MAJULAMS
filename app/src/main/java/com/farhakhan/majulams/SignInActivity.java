@@ -3,6 +3,7 @@ package com.farhakhan.majulams;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -152,10 +153,9 @@ public class SignInActivity extends AppCompatActivity implements
                                                 {
                                                     user.delete();
                                                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                                                    final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-                                                    builder.setTitle("Invalid Administrator ID");
-                                                    builder.setIcon(android.R.drawable.ic_dialog_alert);
-                                                    builder.setMessage(R.string.Adm_invalid_Sign_in_note);
+                                                    final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                                                    builder.setTitle("Invalid Administrator ID").setIcon(R.drawable.my_alert_icon)
+                                                    .setMessage(R.string.Adm_invalid_Sign_in_note);
                                                     builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
@@ -237,10 +237,9 @@ public class SignInActivity extends AppCompatActivity implements
                                                             {
                                                                 user.delete();
                                                                 Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                                                                final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK);
-                                                                builder.setTitle("Invalid Employee ID");
-                                                                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                                                                builder.setMessage(R.string.Emp_invalid_Sign_in_note);
+                                                                final AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                                                                builder.setTitle("Invalid Employee ID").setIcon(R.drawable.my_alert_icon)
+                                                                .setMessage(R.string.Emp_invalid_Sign_in_note);
                                                                 builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(DialogInterface dialog, int which) {
@@ -308,7 +307,7 @@ public class SignInActivity extends AppCompatActivity implements
                 id_imgbtn_emp =v.getId();
                 break;
         }
-        id_imgbtn =v.getId();
+        id_imgbtn=v.getId();
     }
 
     @Override

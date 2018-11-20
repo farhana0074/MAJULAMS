@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -38,6 +39,7 @@ public class FacultyMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         GoogleApiClient.OnConnectionFailedListener {
 
+
     public String person_email, person_name, person_pic;
     public String strDate, strDay;
     public String empFaculty, empDepartment, empDomain;
@@ -46,11 +48,16 @@ public class FacultyMainActivity extends AppCompatActivity
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private GoogleApiClient mGoogleApiClient;
+    public  FabSpeedDial fabSpeedDial;
+    public FrameLayout frameLayout, container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_main);
+        fabSpeedDial = findViewById(R.id.fab_speed_dial);
+        frameLayout= findViewById(R.id.fab_bkg);
+        container = findViewById(R.id.container_faculty);
         Intent intent = getIntent();
         if (intent != null) {
             person_email = intent.getStringExtra("EmailID");
@@ -70,6 +77,7 @@ public class FacultyMainActivity extends AppCompatActivity
             strDay=day.format(calendar.getTime());
             TextView txt_day = findViewById(R.id.Faculty_Day);
             txt_day.setText(strDay);
+
 
             mFirebaseAuth = FirebaseAuth.getInstance();
             mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -105,13 +113,12 @@ public class FacultyMainActivity extends AppCompatActivity
             TextView tvDepartment = findViewById(R.id.txt_FDep);
             tvDepartment.setText("Department of "+ empDepartment);
 
-            final FabSpeedDial fabSpeedDial = findViewById(R.id.fab_speed_dial);
-            final FrameLayout frameLayout= findViewById(R.id.fab_bkg);
+
                fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
 
                 @Override
                 public boolean onPrepareMenu(NavigationMenu navigationMenu) {
-                       frameLayout.setBackgroundColor(getResources().getColor(R.color.TransparentWhite));
+                       frameLayout.setBackgroundColor(getResources().getColor(R.color.TransparentBlack));
                    return super.onPrepareMenu(navigationMenu);
                 }
 
@@ -124,17 +131,27 @@ public class FacultyMainActivity extends AppCompatActivity
                    @Override
                 public boolean onMenuItemSelected(MenuItem menuItem) {
                     int itemId= menuItem.getItemId();
-                    if(itemId==R.id.half_leave)
+                       frameLayout.setBackgroundColor(Color.TRANSPARENT);
+                       FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
+                       if(itemId==R.id.half_leave)
                     {
+                        HalfLeaveFragment halfLeaveFragment = new HalfLeaveFragment();
+                         transaction.replace(R.id.container_faculty, halfLeaveFragment)
+                                .addToBackStack(null).commit();
 
                     }
                     else if (itemId==R.id.full_leave)
                     {
+                        FullLeaveFragment fullLeaveFragment = new FullLeaveFragment();
+                        transaction.replace(R.id.container_faculty, fullLeaveFragment)
+                                .addToBackStack(null).commit();
 
                     }
                     else if (itemId==R.id.leave_without_pay)
                     {
-
+                        LeaveWithoutPayFragment leaveWithoutPayFragment = new LeaveWithoutPayFragment();
+                        transaction.replace(R.id.container_faculty, leaveWithoutPayFragment)
+                                .addToBackStack(null).commit();
                     }
                     return false;
                 }
@@ -167,6 +184,7 @@ public class FacultyMainActivity extends AppCompatActivity
 }
     @Override
     public void onBackPressed() {
+        showFloatingActionButton();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -177,7 +195,7 @@ public class FacultyMainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items1 to the action bar if it is present.
         getMenuInflater().inflate(R.menu.faculty_main, menu);
         return true;
     }
@@ -210,7 +228,7 @@ public class FacultyMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Fragment faculty = new FacultyMainFragment();
+            Fragment faculty = new FullLeaveFragment();
             FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.container_faculty, faculty)
                     .addToBackStack(null).commit();
@@ -234,5 +252,27 @@ public class FacultyMainActivity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public void showFloatingActionButton()
+    {
+        fabSpeedDial.setVisibility(View.VISIBLE);
+        frameLayout.setVisibility(View.VISIBLE);
+        fabSpeedDial.show();
+        frameLayout.isShown();
+    }
+
+    public void hideFloatingActionButton()
+    {
+        fabSpeedDial.hide();
+        frameLayout.setVisibility(View.INVISIBLE);
+    }
+
+    public void clearBackstack()
+    {
+        FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(0);
+        getSupportFragmentManager().popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().executePendingTransactions();
+        showFloatingActionButton();
     }
 }
