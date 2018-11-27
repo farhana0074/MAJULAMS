@@ -12,12 +12,62 @@
         android:layout_height="match_parent"
         android:background="@color/White">
 
+        <TextView
+            android:id="@+id/tv_Ltype_hl"
+            android:layout_width="137dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:text="Leave Type:"
+            android:textColor="@color/DarkerGray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHdHl" />
+
+        <RadioGroup
+            android:id="@+id/rgLeaveOpt_hl"
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="44dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_Ltype_hl">
+
+            <RadioButton
+                android:id="@+id/rbSick_hl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text=" Sick Leave"
+                android:textColor="@color/DarkerGray"
+                android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/rbCasual_hl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" Casual Leave"
+                android:textColor="@color/DarkerGray"
+                android:textSize="17sp" />
+
+        </RadioGroup>
+
+
         <Button
             android:id="@+id/go_further_hl"
             android:layout_width="wrap_content"
             android:layout_height="59dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="Enter Further Details"
             android:textAllCaps="false"
@@ -32,7 +82,7 @@
             android:layout_width="216dp"
             android:layout_height="31dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Half Leave Form"
@@ -45,26 +95,26 @@
 
         <TextView
             android:id="@+id/txt_date_from_hl"
-            android:layout_width="160dp"
+            android:layout_width="137dp"
             android:layout_height="35dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="8dp"
             android:gravity="center_vertical"
             android:text="Leave Date: "
             android:textColor="@color/DarkerGray"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHdHl" />
+            app:layout_constraintTop_toBottomOf="@+id/rgLeaveOpt_hl" />
 
         <TextView
             android:id="@+id/txt_date_from_hl2"
-            android:layout_width="160dp"
+            android:layout_width="137dp"
             android:layout_height="35dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
-            android:text="Leave Starting Slot: "
+            android:text="Beginning Time: "
             android:textColor="@color/DarkerGray"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -73,12 +123,12 @@
 
         <TextView
             android:id="@+id/txt_date_from_hl3"
-            android:layout_width="160dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
-            android:text="Leave Ending Slot: "
+            android:text="Ending Time:      (Optional)"
             android:textColor="@color/DarkerGray"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -90,36 +140,46 @@
             android:layout_width="137dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="44dp"
             android:background="@color/LighterGray"
-            android:text="Date_From"
+            android:text="Date_On"
             android:textAllCaps="false"
-            android:textColor="@color/DarkerGray"
+            android:textColor="@color/Gray"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl"
             app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl" />
 
-        <Spinner
-            android:id="@+id/spinner1"
+        <Button
+            android:id="@+id/btn_begnTime"
             android:layout_width="137dp"
-            android:layout_height="34dp"
+            android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="44dp"
+            android:background="@color/LighterGray"
+            android:text="Time_Begin"
             android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/Gray"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl2"
             app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl2" />
 
-        <Spinner
-            android:id="@+id/spinner2"
+        <Button
+            android:id="@+id/btn_endTime"
             android:layout_width="137dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginEnd="44dp"
+            android:background="@color/LighterGray"
+            android:text="Time_End"
             android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/Gray"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl2"

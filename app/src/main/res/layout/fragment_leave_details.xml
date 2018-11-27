@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/White">
+
         <TextView
             android:id="@+id/leave_details_hd"
             android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Leave Details"
@@ -31,10 +32,10 @@
             android:layout_width="346dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:padding="8dip"
-            android:text="How would you like to cover your left class/classes?"
+            android:text="How would you like to manage your left class/classes?"
             android:textColor="@color/DarkerGray"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -59,48 +60,72 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="5dip"
                 android:checked="true"
+                android:padding="5dip"
                 android:text="You'll take make-up class afterwards"
                 android:textColor="@color/DarkerGray"
                 android:textSize="17sp" />
+
+            <RadioButton
+                android:id="@+id/rbNoClass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:textColor="@color/DarkerGray"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="No class" />
+
+            <RadioButton
+                android:id="@+id/rbOfficial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="17sp"
+                android:padding="5dip"
+                android:textColor="@color/DarkerGray"
+                android:text="You'll have an official visit" />
 
             <RadioButton
                 android:id="@+id/rbFixture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="start"
                 android:padding="5dip"
-                android:text="You'll ask another teacher to take class in place of you"
+                android:text="You'll ask any other teacher to take class in place of you"
                 android:textColor="@color/DarkerGray"
                 android:textSize="17sp" />
+
         </RadioGroup>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:padding="8dip"
-            android:text="Reason for Leave: (Optional)"
+            android:text="Comments: (Optional)"
             android:textColor="@color/DarkerGray"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.115"
+            app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rgCoverOptions" />
 
         <EditText
             android:id="@+id/etReason"
-            android:layout_width="325dp"
+            android:layout_width="323dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-            android:hint="Reason"
-            android:maxLength="350"
+            android:hint="Comments"
+            android:textSize="17sp"
             android:inputType="textMultiLine"
+            android:maxLength="400"
             android:padding="8dip"
             android:textColor="@color/DarkerGray"
             app:layout_constraintEnd_toEndOf="parent"

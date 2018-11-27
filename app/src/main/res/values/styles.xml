@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/MyTimePickerDialogTheme</item>
         <item name="android:alertDialogTheme">@style/MyAlertDialogTheme</item>
     </style>
 
@@ -17,6 +18,9 @@
     <item name="android:colorAccent">@color/Black</item>
     </style>
 
+    <style name="MyTimePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:colorAccent">@color/Black</item>
+    </style>
     <style name="MyFabMenuTheme" parent="AppTheme">
         <item name="android:textSize">18sp</item>
     </style>

@@ -5,12 +5,15 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,10 +28,11 @@ implements View.OnClickListener{
     Button btnDateTill;
     Button btnGoFurther;
     int id_btn, id_btn_from, id_btn_till;
-    String strDateFrom, strDateTill, outFormattedDateFrom, outFormattedDateTill, strDateToday, strT;
+    String strDateFrom, strDateTill, outFormattedDateFrom, outFormattedDateTill,
+            strDateToday, outFormattedDateToday;
     Date dateFrom, dateTill, dateToday;
 
-    SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM, yyyy");
     Calendar calendar= Calendar.getInstance();
     @Override
@@ -36,24 +40,21 @@ implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_leave_without_pay, container, false);
 
-        strDateToday = outFormat.format(calendar.getTime());
-        strT = inFormat.format(calendar.getTime());
-        try {
-            dateToday= inFormat.parse(strT);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        outFormattedDateToday= outFormat.format(calendar.getTime());
 
         btnDateFrom = view.findViewById(R.id.get_date_from);
-        btnDateFrom.setText(strDateToday);
+        btnDateFrom.setText(outFormattedDateToday);
         btnDateFrom.setOnClickListener(this);
+        btnDateFrom.setEnabled(true);
 
         btnDateTill = view.findViewById(R.id.get_date_till);
-        btnDateTill.setText(strDateToday);
+        btnDateTill.setText(outFormattedDateToday);
         btnDateTill.setOnClickListener(this);
+        btnDateTill.setEnabled(false);
 
         btnGoFurther = view.findViewById(R.id.go_further);
         btnGoFurther.setOnClickListener(this);
+        btnGoFurther.setEnabled(false);
 
         return view;
     }
@@ -73,11 +74,13 @@ implements View.OnClickListener{
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             monthOfYear=monthOfYear+1;
+            strDateToday = inFormat.format(calendar.getTime());
             if(id_btn== id_btn_from)
             {
-                strDateFrom =String.valueOf(dayOfMonth)+ "/" + String.valueOf(monthOfYear)
-                        + "/" + String.valueOf(year);
+                strDateFrom =String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
+                        + "-" + String.valueOf(dayOfMonth);
                 try {
+                    dateToday = inFormat.parse(strDateToday);
                     dateFrom = inFormat.parse(strDateFrom);
                     if(dateFrom!=null)
                     {
@@ -86,12 +89,31 @@ implements View.OnClickListener{
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                btnDateFrom.setText(outFormattedDateFrom);
-                btnDateFrom.setTextColor(getResources().getColor(R.color.colorAccent));
-            }
+
+                if(dateFrom.equals(dateToday))
+                {
+                    Toast.makeText(getContext(),"Full Leave can be applied at least 1 day prior",
+                            Toast.LENGTH_LONG).show();
+                    btnDateFrom.setEnabled(true);
+                    ResetDateFrom();
+                }
+                else if(dateFrom.before(dateToday))
+                {
+                    Toast.makeText(getContext(), "Leave Beginning date cannot be before Current date",
+                            Toast.LENGTH_LONG).show();
+                    btnDateFrom.setEnabled(true);
+                    ResetDateFrom();
+                }
+                else {
+                    btnDateFrom.setText(outFormattedDateFrom);
+                    btnDateFrom.setTextColor(getResources().getColor(R.color.colorAccent));
+                    btnDateFrom.setEnabled(false);
+                    btnDateTill.setEnabled(true);
+                }
+                    }
             else if (id_btn==id_btn_till) {
-                strDateTill =  String.valueOf(dayOfMonth)+ "/" + String.valueOf(monthOfYear)
-                        + "/" + String.valueOf(year);
+                strDateTill =  String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
+                        + "-" + String.valueOf(dayOfMonth);
                 try {
                     dateTill = inFormat.parse(strDateTill);
                     if(dateTill!=null)
@@ -101,8 +123,19 @@ implements View.OnClickListener{
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
-                btnDateTill.setText(outFormattedDateTill);
-                btnDateTill.setTextColor(getResources().getColor(R.color.colorAccent));
+                if(dateTill.equals(dateFrom)||dateTill.after(dateFrom)) {
+                    btnDateTill.setText(outFormattedDateTill);
+                    btnDateTill.setTextColor(getResources().getColor(R.color.colorAccent));
+                    btnDateTill.setEnabled(false);
+                    btnGoFurther.setEnabled(true);
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Leave Ending Date Cannot be before Leave Beginnig date",
+                            Toast.LENGTH_LONG).show();
+                    btnDateTill.setEnabled(true);
+                    ResetDateTill();
+                }
             }
         }
     };
@@ -122,71 +155,25 @@ implements View.OnClickListener{
                 break;
 
             case R.id.go_further:
-                final AlertDialog.Builder adBuilder = new AlertDialog.Builder(getContext());
-                adBuilder.setIcon(R.drawable.my_alert_icon);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                if(dateFrom!=null && dateTill!=null && dateToday!=null) {
-                    if (dateFrom.equals(dateToday)|| dateFrom.after(dateToday))
-                    {
-                    if (dateFrom.before(dateTill) || dateFrom.equals(dateTill)) {
-                        transaction.replace(R.id.container_faculty, new LeaveDetailsFragment())
-                                .addToBackStack(null).commit();
-                    } else if (dateFrom.after(dateTill)) {
-                        adBuilder.setTitle("Invalid Date Input")
-                                .setMessage("Leave starting date is after leave ending date!")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                        adBuilder.show();
-                        ResetBtnText();
-                    }
-                }
-                else
-                    {
-                        adBuilder.setTitle("Leave Starting Date Error")
-                                .setMessage("Leave starting date cannot be before current date")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                        adBuilder.show();
-                        ResetBtnText();
-                    }
-                }
-
-                else
-                {
-                        adBuilder.setTitle("Input Date Error")
-                                .setMessage("You have not entered the Leave Starting Date and Ending Date Properly")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-                        adBuilder.show();
-                    ResetBtnText();
-
-
-
-                }
+                transaction.replace(R.id.container_faculty, new LeaveDetailsFragment())
+                        .addToBackStack(null).commit();
         }
         id_btn =v.getId();
     }
 
-    public void ResetBtnText()
+    public void ResetDateFrom()
     {
         dateFrom=null;
-        btnDateFrom.setTextColor(getResources().getColor(R.color.DarkerGray));
-        btnDateFrom.setText(strDateToday);
+        btnDateFrom.setTextColor(getResources().getColor(R.color.Gray));
+        btnDateFrom.setText(outFormattedDateToday);
+    }
+
+    public void ResetDateTill()
+    {
         dateTill=null;
-        btnDateTill.setTextColor(getResources().getColor(R.color.DarkerGray));
-        btnDateTill.setText(strDateToday);
+        btnDateTill.setTextColor(getResources().getColor(R.color.Gray));
+        btnDateTill.setText(outFormattedDateToday);
     }
 
 }

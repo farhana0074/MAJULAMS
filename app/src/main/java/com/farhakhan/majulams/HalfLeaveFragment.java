@@ -1,6 +1,7 @@
 package com.farhakhan.majulams;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,12 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,16 +21,19 @@ import java.util.Date;
 
 public class HalfLeaveFragment extends Fragment
 implements View.OnClickListener {
-    Button btnOnDate, btnGoFurther;
-    Spinner spnSlotFrom, spnSlotTill;
-    SimpleDateFormat inFormat = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM, yyyy");
+    Button btnOnDate, btnGoFurther, btnBegnTime, btnEndnTime;
+    SimpleDateFormat inFormatDate = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat outFormatDate = new SimpleDateFormat("dd MMM, yyyy");
+    SimpleDateFormat inFormatTime = new SimpleDateFormat("h:mm");
+    SimpleDateFormat outFormatTime = new SimpleDateFormat("h:mm a");
     Calendar calendar= Calendar.getInstance();
-    String[] items1 = new String[]{"1", "2", "3", "4", "5"};
-    String[] items2 = new String[]{"2","3", "4", "5"};
-    int startSlot, endSlot;
-    String strOnDate, outFormattedOnDate, strDateToday, strT;
-    Date onLeaveDate, dateToday;
+    int id_btn, id_btn_begin, id_btn_end;
+    String strOnDate, outFormattedOnDate, outFormattedDateToday, strDateToday,
+            outFormattedBTime, outFormattedETime, outFormattedNTime, strTimeEnd,
+            strTimeBegin, strTimeAfter1hr, strTimeAfter5hr;
+    Date onLeaveDate, dateToday, timeBegin, timeEnd, timeAfter1hr,
+            timeAfter5hr;
+
 
     public HalfLeaveFragment() {
     }
@@ -40,57 +42,32 @@ implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_half_leave, container, false);
-        strDateToday = outFormat.format(calendar.getTime());
-        strT = inFormat.format(calendar.getTime());
-        try {
-            dateToday= inFormat.parse(strT);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        spnSlotFrom= view.findViewById(R.id.spinner1);
+
+        outFormattedDateToday = outFormatDate.format(calendar.getTime());
 
         btnOnDate =view.findViewById(R.id.get_onDate);
-        btnOnDate.setText(strDateToday);
+        btnOnDate.setText(outFormattedDateToday);
         btnOnDate.setOnClickListener(this);
+        btnOnDate.setEnabled(true);
+
+        outFormattedNTime = outFormatTime.format(calendar.getTime());
+
+        btnBegnTime = view.findViewById(R.id.btn_begnTime);
+        btnBegnTime.setText(outFormattedNTime);
+        btnBegnTime.setOnClickListener(this);
+        btnBegnTime.setEnabled(false);
+
+        btnEndnTime = view.findViewById(R.id.btn_endTime);
+        btnEndnTime.setText(outFormattedNTime);
+        btnEndnTime.setOnClickListener(this);
+        btnEndnTime.setEnabled(false);
 
         btnGoFurther = view.findViewById(R.id.go_further_hl);
         btnGoFurther.setOnClickListener(this);
-
-        spnSlotTill =view.findViewById(R.id.spinner2);
-        initSpinner1();
-        initSpinner2();
+        btnGoFurther.setEnabled(false);
 
         return view;   }
-    private void initSpinner1() {
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, items1);
-        spnSlotFrom.setAdapter(arrayAdapter);
-        spnSlotFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorAccent));
-                startSlot= Integer.parseInt(parent.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-        }
-        private void initSpinner2()
-        {
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, items2);
-            spnSlotTill.setAdapter(arrayAdapter);
-            spnSlotTill.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((TextView)parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorAccent));
-                    endSlot= Integer.parseInt(parent.getSelectedItem().toString());
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {}
-            });
-        }
     private void showDatePicker() {
         DatePickerFragment date = new DatePickerFragment();
         Bundle args = new Bundle();
@@ -106,84 +83,164 @@ implements View.OnClickListener {
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             monthOfYear = monthOfYear + 1;
-
-            strOnDate=String.valueOf(dayOfMonth)+ "/" + String.valueOf(monthOfYear)
-                    + "/" + String.valueOf(year);
+           btnOnDate.setEnabled(true);
+            strOnDate=String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
+                    + "-" + String.valueOf(dayOfMonth);
+            strDateToday = inFormatDate.format(calendar.getTime());
             try {
-                onLeaveDate = inFormat.parse(strOnDate);
+                dateToday= inFormatDate.parse(strDateToday);
+                onLeaveDate = inFormatDate.parse(strOnDate);
                 if(onLeaveDate !=null)
                 {
-                    outFormattedOnDate = outFormat.format(onLeaveDate);
+                    outFormattedOnDate = outFormatDate.format(onLeaveDate);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            btnOnDate.setText(outFormattedOnDate);
-            btnOnDate.setTextColor(getResources().getColor(R.color.colorAccent));
-        }
+
+            if(onLeaveDate.equals(dateToday)|| onLeaveDate.after(dateToday)){
+                btnOnDate.setText(outFormattedOnDate);
+                btnOnDate.setTextColor(getResources().getColor(R.color.colorAccent));
+                btnBegnTime.setEnabled(true);
+                btnOnDate.setEnabled(false);
+            }
+            else {
+                Toast.makeText(getContext(),"Leave Date Cannot be before Current Date", Toast.LENGTH_LONG).show();
+                resetOnLeaveDate();
+            }
+            }
     };
+    private void showTimePicker()
+    {
+        TimePickerFragment timePicker= new TimePickerFragment();
+        Bundle args = new Bundle();
+        args.putInt("hours", calendar.get(Calendar.HOUR_OF_DAY));
+        args.putInt("mins", calendar.get(Calendar.MINUTE));
+        args.putBoolean("is24HourView", false);
+        args.putInt("am_pm",calendar.get(Calendar.AM_PM));
+        timePicker.setArguments(args);
+        timePicker.setCallBack(ontime);
+        timePicker.show(getFragmentManager(), "Time Picker");
+    }
 
+    TimePickerDialog.OnTimeSetListener ontime =(new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+                if (id_btn == id_btn_begin) {
+                    strTimeBegin = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+                    Calendar calAfter1hr = Calendar.getInstance();
+                    calAfter1hr.set(Calendar.HOUR_OF_DAY, calAfter1hr.get(Calendar.HOUR_OF_DAY) + 1);
+                    strTimeAfter1hr = inFormatTime.format(calAfter1hr.getTime());
+                    try {
+                        timeAfter1hr = inFormatTime.parse(strTimeAfter1hr);
+                        timeBegin = inFormatTime.parse(strTimeBegin);
+                        if (timeBegin != null)
+                            outFormattedBTime = outFormatTime.format(timeBegin);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    if (onLeaveDate.equals(dateToday)) {
+                        if (timeBegin.before(timeAfter1hr)) {
+                            Toast.makeText(getContext(), "Leave Beginning time should be at least 1 hour after Current time", Toast.LENGTH_LONG).show();
+                            resetBegnTime();
+                        }
+                        else {
+                            btnBegnTime.setText(outFormattedBTime);
+                            btnBegnTime.setTextColor(getResources().getColor(R.color.colorAccent));
+                            btnEndnTime.setEnabled(true);
+                            btnGoFurther.setEnabled(true);
+                            btnBegnTime.setEnabled(false);
+
+                        }
+                    }
+                    else if(onLeaveDate.after(dateToday))
+                    {
+                        btnBegnTime.setText(outFormattedBTime);
+                        btnBegnTime.setTextColor(getResources().getColor(R.color.colorAccent));
+                        btnEndnTime.setEnabled(true);
+                        btnGoFurther.setEnabled(true);
+                        btnBegnTime.setEnabled(false);
+                    }
+                }
+
+                else if (id_btn == id_btn_end){
+                    strTimeEnd = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+                    Calendar calAfter5hr = Calendar.getInstance();
+                    calAfter5hr.setTime(timeBegin);
+                    calAfter5hr.set(Calendar.HOUR_OF_DAY, calAfter5hr.get(calAfter5hr.HOUR_OF_DAY)+5);
+                    strTimeAfter5hr =inFormatTime.format(calAfter5hr.getTime());
+                    try {
+                        timeAfter5hr=inFormatTime.parse(strTimeAfter5hr);
+                        timeEnd = inFormatTime.parse(strTimeEnd);
+                        if (timeEnd != null)
+                            outFormattedETime = outFormatTime.format(timeEnd);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                        if (timeEnd.before(timeAfter5hr)) {
+                            Toast.makeText(getContext(), "Leave ending time should be at least after 5 hours", Toast.LENGTH_LONG).show();
+                            resetEndnTime();
+                    }
+                        else {
+                            btnEndnTime.setText(outFormattedETime);
+                            btnEndnTime.setTextColor(getResources().getColor(R.color.colorAccent));
+                            btnEndnTime.setEnabled(false);
+                        }
+                }
+
+        }
+    });
     @Override
     public void onClick(View v) {
         switch (v.getId())
         {
             case R.id.get_onDate:
-                showDatePicker();
+             showDatePicker();
                 break;
 
             case R.id.go_further_hl:
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                final AlertDialog.Builder adBuilder = new AlertDialog.Builder(getContext());
-                adBuilder.setIcon(R.drawable.my_alert_icon);
-                if(onLeaveDate!= null && dateToday!=null)
-                {
-                    if (onLeaveDate.before(dateToday) && (startSlot<endSlot))
-                    {
-                        adBuilder.setTitle("Date Input Error")
-                                .setMessage("Leave date cannot be before current date")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                        adBuilder.show();
-                        ResetBtnText();
-                    }
-                    else if(onLeaveDate.after(dateToday) && (startSlot<endSlot))
-                    {
-                        transaction.replace(R.id.container_faculty, new LeaveDetailsFragment())
-                         .addToBackStack(null).commit();
-                    }
-                    else if ((onLeaveDate.equals(dateToday)|| onLeaveDate.after(dateToday))&& (startSlot>endSlot))
-                    {
-                        adBuilder.setTitle("Slot Input Error")
-                                .setMessage("Leave starting slot cannot be after Leave ending slot")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                        adBuilder.show();
-                    }
-                    else
-                    {
-                        adBuilder.setTitle("Input Error")
-                                .setMessage("You have not inserted input values properly!")
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                        adBuilder.show();
-                    }
-                }
+                transaction.replace(R.id.container_faculty, new LeaveDetailsFragment())
+                        .addToBackStack(null).commit();
+
+                break;
+
+            case R.id.btn_begnTime:
+                showTimePicker();
+                id_btn_begin = v.getId();
+                break;
+
+            case R.id.btn_endTime:
+                showTimePicker();
+                id_btn_end = v.getId();
                 break;
         }
+
+        id_btn = v.getId();
     }
-    public void ResetBtnText ()
+    public void resetOnLeaveDate ()
     {
-        btnOnDate.setText(strDateToday);
-        btnOnDate.setTextColor(getResources().getColor(R.color.DarkerGray));
+        onLeaveDate= null;
+        btnOnDate.setText(outFormattedDateToday);
+        btnOnDate.setTextColor(getResources().getColor(R.color.Gray));
     }
+
+    public void resetBegnTime()
+    {
+        timeBegin = null;
+        btnBegnTime.setText(outFormattedNTime);
+        btnBegnTime.setTextColor(getResources().getColor(R.color.Gray));
+    }
+
+    public void resetEndnTime()
+    {
+        timeEnd=null;
+        btnEndnTime.setText(outFormattedNTime);
+        btnEndnTime.setTextColor(getResources().getColor(R.color.Gray));
+
+    }
+
 }
