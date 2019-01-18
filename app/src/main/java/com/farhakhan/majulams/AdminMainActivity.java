@@ -1,6 +1,8 @@
 package com.farhakhan.majulams;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +40,7 @@ public class AdminMainActivity extends AppCompatActivity
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private GoogleApiClient mGoogleApiClient;
+    EditText editText;
 
 
     @Override
@@ -126,7 +131,7 @@ public class AdminMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_summers) {
             Fragment admin = new AdminMainFragment();
             FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.container_admin, admin)

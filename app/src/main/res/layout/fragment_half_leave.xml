@@ -10,31 +10,50 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="15dip"
         android:background="@color/White">
+
+        <Button
+            android:id="@+id/go_further_hl"
+            android:layout_width="335dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/main_btn_bkg"
+            android:text="NEXT                    >>"
+            android:textColor="@color/White"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_accs"
+            app:layout_constraintVertical_bias="0.466" />
 
         <TextView
             android:id="@+id/tv_Ltype_hl"
             android:layout_width="137dp"
             android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical"
+            android:paddingStart="8dip"
             android:text="Leave Type:"
             android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/container_accs"
             app:layout_constraintTop_toBottomOf="@+id/textViewHdHl" />
 
         <RadioGroup
             android:id="@+id/rgLeaveOpt_hl"
-            android:layout_width="297dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="44dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +67,7 @@
                 android:checked="true"
                 android:text=" Sick Leave"
                 android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rbCasual_hl"
@@ -57,133 +76,144 @@
                 android:layout_weight="1"
                 android:text=" Casual Leave"
                 android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
+
+
+            <RadioButton
+                android:id="@+id/rbOfVisit_hl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=" Official Visit"
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp" />
 
         </RadioGroup>
 
-
-        <Button
-            android:id="@+id/go_further_hl"
-            android:layout_width="wrap_content"
-            android:layout_height="59dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Enter Further Details"
-            android:textAllCaps="false"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date_from_hl3" />
 
         <TextView
             android:id="@+id/textViewHdHl"
             android:layout_width="216dp"
             android:layout_height="31dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Half Leave Form"
             android:textColor="@color/Black"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_date_from_hl"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:text="Leave Date: "
-            android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgLeaveOpt_hl" />
-
-        <TextView
-            android:id="@+id/txt_date_from_hl2"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:text="Beginning Time: "
-            android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date_from_hl" />
-
-        <TextView
-            android:id="@+id/txt_date_from_hl3"
-            android:layout_width="137dp"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/container_accs"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:text="Ending Time:      (Optional)"
-            android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date_from_hl2" />
+            app:layout_constraintTop_toBottomOf="@+id/rgLeaveOpt_hl">
 
-        <Button
-            android:id="@+id/get_onDate"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="44dp"
-            android:background="@color/LighterGray"
-            android:text="Date_On"
-            android:textAllCaps="false"
-            android:textColor="@color/Gray"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl"
-            app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl" />
+            <TextView
+                android:id="@+id/txt_date_from_hl"
+                android:layout_width="147dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Leave Date: "
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btn_begnTime"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="44dp"
-            android:background="@color/LighterGray"
-            android:text="Time_Begin"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/Gray"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl2"
-            app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl2" />
+            <TextView
+                android:id="@+id/txt_time_begin_hl"
+                android:layout_width="147dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Beginning Time: "
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_date_from_hl" />
 
-        <Button
-            android:id="@+id/btn_endTime"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="44dp"
-            android:background="@color/LighterGray"
-            android:text="Time_End"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/Gray"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl2"
-            app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl3" />
+            <TextView
+                android:id="@+id/txt_time_end_hl"
+                android:layout_width="147dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:text="Ending Time:      (Optional)"
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_time_begin_hl" />
+
+            <Button
+                android:id="@+id/get_onDate"
+                android:layout_width="147dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:text="Date_On"
+                android:textAllCaps="false"
+                android:textColor="@color/Gray"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_date_from_hl"
+                app:layout_constraintTop_toTopOf="@+id/txt_date_from_hl" />
+
+            <Button
+                android:id="@+id/btn_begnTime"
+                android:layout_width="147dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:text="Time_Begin"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/Gray"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_time_begin_hl"
+                app:layout_constraintTop_toTopOf="@+id/txt_time_begin_hl" />
+
+            <Button
+                android:id="@+id/btn_endTime"
+                android:layout_width="147dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/LighterGray"
+                android:text="Time_End"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/Gray"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_time_begin_hl"
+                app:layout_constraintTop_toTopOf="@+id/txt_time_end_hl" />
+
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

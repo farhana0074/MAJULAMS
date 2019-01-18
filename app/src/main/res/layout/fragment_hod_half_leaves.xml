@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HodHalfLeaveDetails">
+
+    <FrameLayout
+        android:id="@+id/container_hod_leave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/White"
+                android:padding="8dip">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/hdApplied"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:padding="8dip"
+                        android:text="Applied By:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_person_pic"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tvApplicant_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdApplied" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_person_pic"
+                        android:layout_width="88dp"
+                        android:layout_height="74dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@color/Gray"
+                        app:civ_border_color="#FF000000"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvApplicant_desig"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/tvApplicant_name"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                    <TextView
+                        android:id="@+id/hdDesignation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Designation:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvApplicant_name" />
+
+                    <TextView
+                        android:id="@+id/tvApplicant_desig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdDesignation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/hdDesignation"
+                        app:layout_constraintTop_toTopOf="@+id/hdDesignation"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/hdDomain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Domain:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdDesignation" />
+
+                    <TextView
+                        android:id="@+id/tvApplicant_domain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdDomain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/hdDomain"
+                        app:layout_constraintTop_toTopOf="@+id/hdDomain"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/colorPrimaryDarkTR"
+                    android:gravity="center"
+                    android:padding="8dip"
+                    android:text="Half Leave"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="55dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/hdLeaveBDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Leave Date:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveType" />
+
+                    <TextView
+                        android:id="@+id/hdLeaveEDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Beginning Time:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveBDate" />
+
+                    <TextView
+                        android:id="@+id/hdLeaveETime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Ending Time:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveEDate" />
+
+                    <TextView
+                        android:id="@+id/hdLeaveC_Opt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Managing Method:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveETime" />
+
+                    <TextView
+                        android:id="@+id/hdComments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Comments:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvLeave_C_Opt" />
+
+                    <TextView
+                        android:id="@+id/hdAppDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Applying Date:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvComments" />
+
+                    <TextView
+                        android:id="@+id/hdAppTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Applying Time:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/hdAppDate" />
+
+                    <TextView
+                        android:id="@+id/hdLeaveType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:text="Leave Type:"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvLeave_Type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdLeaveType"
+                        app:layout_constraintStart_toEndOf="@+id/hdLeaveType"
+                        app:layout_constraintTop_toTopOf="@+id/hdLeaveType" />
+
+                    <TextView
+                        android:id="@+id/tvLeave_Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdLeaveBDate"
+                        app:layout_constraintStart_toEndOf="@+id/hdLeaveBDate"
+                        app:layout_constraintTop_toTopOf="@+id/hdLeaveBDate"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvLeave_BTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdLeaveEDate"
+                        app:layout_constraintStart_toEndOf="@+id/hdLeaveEDate"
+                        app:layout_constraintTop_toTopOf="@+id/hdLeaveEDate" />
+
+                    <TextView
+                        android:id="@+id/tvLeave_ETime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdLeaveETime"
+                        app:layout_constraintStart_toEndOf="@+id/hdLeaveETime"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveEDate"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvLeave_C_Opt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdLeaveC_Opt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/hdLeaveC_Opt"
+                        app:layout_constraintTop_toBottomOf="@+id/hdLeaveETime"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvComments"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdComments"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/hdComments"
+                        app:layout_constraintTop_toTopOf="@+id/hdComments"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/tvAppDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/hdAppDate"
+                        app:layout_constraintStart_toEndOf="@+id/hdAppDate"
+                        app:layout_constraintTop_toBottomOf="@+id/tvComments" />
+
+                    <TextView
+                        android:id="@+id/tvAppTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:padding="8dip"
+                        android:textColor="@color/DarkerGray"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/hdAppTime"
+                        app:layout_constraintStart_toEndOf="@+id/hdAppTime"
+                        app:layout_constraintTop_toTopOf="@+id/hdAppTime" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bnv_hod_HL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/LighterGray"
+            app:menu="@menu/hod_leave_bottom_menu"></android.support.design.widget.BottomNavigationView>
+    </FrameLayout>
+</LinearLayout>

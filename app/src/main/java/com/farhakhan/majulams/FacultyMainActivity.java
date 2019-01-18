@@ -1,6 +1,10 @@
 package com.farhakhan.majulams;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,11 +26,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.farhakhan.majulams.model_classes.TotalAnnualLeaves;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,13 +51,16 @@ public class FacultyMainActivity extends AppCompatActivity
         GoogleApiClient.OnConnectionFailedListener {
 
 
-    public String person_email, person_name, person_pic;
-    public String strDate, strDay;
+    public String person_email, person_name, person_pic, mperson_email;
+    public String strDate, strDay, empDesignation, currentYear;
     public String empFaculty, empDepartment, empDomain;
+    public Long TotalLeavesHL, TotalLeavesFL, TotalLeavesLWP, TotalLeavesSL;
     public CircleImageView NavCmi;
     public CircleImageView MainCmi;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private FirebaseDatabase mFirebaseDb;
+    private DatabaseReference mDbReference;
     private GoogleApiClient mGoogleApiClient;
     public  FabSpeedDial fabSpeedDial;
     public FrameLayout frameLayout, container;
@@ -55,13 +69,16 @@ public class FacultyMainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_main);
+
+        mFirebaseDb=FirebaseDatabase.getInstance();
+        mDbReference=mFirebaseDb.getReference();
         fabSpeedDial = findViewById(R.id.fab_speed_dial);
         frameLayout= findViewById(R.id.fab_bkg);
         container = findViewById(R.id.container_faculty);
         Intent intent = getIntent();
         if (intent != null) {
             person_email = intent.getStringExtra("EmailID");
-            person_email=person_email.replace(",",".");
+            mperson_email=person_email.replace(",",".");
             person_name = intent.getStringExtra("Name");
             person_pic = intent.getStringExtra("Picture");
             empFaculty = intent.getStringExtra("Faculty");
@@ -78,6 +95,79 @@ public class FacultyMainActivity extends AppCompatActivity
             TextView txt_day = findViewById(R.id.Faculty_Day);
             txt_day.setText(strDay);
 
+            Query queryCurrYear = mDbReference.child("Years").orderByChild("Status").equalTo("Current");
+                    queryCurrYear.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 for (DataSnapshot child: dataSnapshot.getChildren()){
+                     currentYear = child.getKey();
+                     TextView txt_currentYear = findViewById(R.id.app_bar_year);
+                     txt_currentYear.setText(currentYear);
+
+                     final TextView tvTotalHL = findViewById(R.id.hl_total);
+                     final TextView tvTotalFL = findViewById(R.id.fl_total);
+                     final TextView tvTotalLWP = findViewById(R.id.pl_total);
+                     final TextView tvTotalSL = findViewById(R.id.sl_total);
+
+                     mDbReference.child("Years").child(currentYear).child("LeavesAllowed")
+                             .addValueEventListener(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                                     if (datasnapshot!= null && datasnapshot.getValue()!= null)
+                                     {
+                                         final TotalAnnualLeaves totalAnnualLeaves = datasnapshot.getValue(TotalAnnualLeaves.class);
+                                         TotalLeavesHL = totalAnnualLeaves.HalfLeaves;
+                                         TotalLeavesFL = totalAnnualLeaves.FullLeaves;
+                                         TotalLeavesLWP = totalAnnualLeaves.LeavesWithoutPay;
+                                         TotalLeavesSL = totalAnnualLeaves.SummerLeaves;
+
+                                         tvTotalHL.setText("Total Half Leaves:  "+ TotalLeavesHL);
+                                         tvTotalFL.setText("Total Full Leaves:  "+ TotalLeavesFL);
+                                         tvTotalLWP.setText("Total Leaves Without Pay:  "+ TotalLeavesLWP);
+                                         tvTotalSL.setText("Total Summer Leaves:  "+ TotalLeavesSL);
+
+
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                 }
+                             });
+
+                     TextView tvRemainingHL = findViewById(R.id.hl_rem);
+                     tvRemainingHL.setText("Remaining:  ");
+
+                     TextView tvRemainingFL = findViewById(R.id.fl_rem);
+                     tvRemainingFL.setText("Remaining:  ");
+
+                     TextView tvRemainingLWP = findViewById(R.id.pl_rem);
+                     tvRemainingLWP.setText("Remaining:  ");
+
+                     TextView tvRemainingSL = findViewById(R.id.sl_rem);
+                     tvRemainingSL.setText("Remaining:  ");
+
+                     TextView tvAvailedHL = findViewById(R.id.hl_avld);
+                     tvAvailedHL.setText("Availed:  ");
+
+                     TextView tvAvailedFL = findViewById(R.id.fl_avld);
+                     tvAvailedFL.setText("Availed:  ");
+
+                     TextView tvAvailedLWP = findViewById(R.id.pl_avld);
+                     tvAvailedLWP.setText("Availed:  ");
+
+                     TextView tvAvailedSL = findViewById(R.id.sl_avld);
+                     tvAvailedSL.setText("Availed:  ");
+
+
+                 }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
             mFirebaseAuth = FirebaseAuth.getInstance();
             mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -113,9 +203,21 @@ public class FacultyMainActivity extends AppCompatActivity
             TextView tvDepartment = findViewById(R.id.txt_FDep);
             tvDepartment.setText("Department of "+ empDepartment);
 
+            final TextView tvDesignation = findViewById(R.id.txt_FDesig);
 
-               fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            mDbReference.child(empFaculty).child(empDepartment).child(empDomain).child(person_email)
+                    .child("Designation").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot!=null)
+                    empDesignation = dataSnapshot.getValue().toString();
+                    tvDesignation.setText(empDesignation);
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) { }});
+
+            fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
                 @Override
                 public boolean onPrepareMenu(NavigationMenu navigationMenu) {
                        frameLayout.setBackgroundColor(getResources().getColor(R.color.TransparentBlack));
@@ -132,25 +234,38 @@ public class FacultyMainActivity extends AppCompatActivity
                 public boolean onMenuItemSelected(MenuItem menuItem) {
                     int itemId= menuItem.getItemId();
                        frameLayout.setBackgroundColor(Color.TRANSPARENT);
+                       Bundle bundle = new Bundle();
+                       bundle.putString("EmailID", person_email);
+                       bundle.putString("Faculty", empFaculty);
+                       bundle.putString("Department", empDepartment);
+                       bundle.putString("Domain", empDomain);
+                       bundle.putString("Designation", empDesignation);
                        FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
+
                        if(itemId==R.id.half_leave)
                     {
                         HalfLeaveFragment halfLeaveFragment = new HalfLeaveFragment();
-                         transaction.replace(R.id.container_faculty, halfLeaveFragment)
+                        halfLeaveFragment.setArguments(bundle);
+                         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                 .replace(R.id.container_faculty, halfLeaveFragment)
                                 .addToBackStack(null).commit();
 
                     }
                     else if (itemId==R.id.full_leave)
                     {
                         FullLeaveFragment fullLeaveFragment = new FullLeaveFragment();
-                        transaction.replace(R.id.container_faculty, fullLeaveFragment)
+                        fullLeaveFragment.setArguments(bundle);
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .replace(R.id.container_faculty, fullLeaveFragment)
                                 .addToBackStack(null).commit();
 
                     }
                     else if (itemId==R.id.leave_without_pay)
                     {
                         LeaveWithoutPayFragment leaveWithoutPayFragment = new LeaveWithoutPayFragment();
-                        transaction.replace(R.id.container_faculty, leaveWithoutPayFragment)
+                        leaveWithoutPayFragment.setArguments(bundle);
+                        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .replace(R.id.container_faculty, leaveWithoutPayFragment)
                                 .addToBackStack(null).commit();
                     }
                     return false;
@@ -173,7 +288,7 @@ public class FacultyMainActivity extends AppCompatActivity
             TextView txt_name = headerview.findViewById(R.id.user_name_faculty);
             txt_name.setText(person_name);
             TextView txt_email = headerview.findViewById(R.id.user_email_faculty);
-            txt_email.setText(person_email);
+            txt_email.setText(mperson_email);
             Glide.with(FacultyMainActivity.this)
                     .load(person_pic)
                     .apply(new RequestOptions().override(100, 100))
@@ -188,9 +303,27 @@ public class FacultyMainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+        else{
+            if(getSupportFragmentManager().getBackStackEntryCount()>= 0)
+            {
+                new AlertDialog.Builder(this)
+                        .setTitle(" Exit")
+                        .setIcon(R.drawable.my_alert_icon)
+                        .setMessage("Are you sure you want to exit?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                quit();
+                                FacultyMainActivity.super.onBackPressed();
+                            }
+                        }).create().show();
+            }
+              else
+                super.onBackPressed();
+        }
+
     }
 
     @Override
@@ -227,10 +360,18 @@ public class FacultyMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            Fragment faculty = new FullLeaveFragment();
+        if (id == R.id.nav_summers) {
+            Fragment summerLeaves = new SummerLeavesFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("EmailID", person_email);
+            bundle.putString("Faculty", empFaculty);
+            bundle.putString("Department", empDepartment);
+            bundle.putString("Domain", empDomain);
+            bundle.putString("Designation", empDesignation);
+            summerLeaves.setArguments(bundle);
             FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.container_faculty, faculty)
+            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.container_faculty, summerLeaves)
                     .addToBackStack(null).commit();
         } else if (id == R.id.nav_gallery) {
 
@@ -274,5 +415,13 @@ public class FacultyMainActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getSupportFragmentManager().executePendingTransactions();
         showFloatingActionButton();
+    }
+
+    public void quit() {
+        Intent start = new Intent(Intent.ACTION_MAIN);
+        start.addCategory(Intent.CATEGORY_HOME);
+        start.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(start);
     }
 }

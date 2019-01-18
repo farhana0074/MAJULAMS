@@ -15,25 +15,29 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class LeaveWithoutPayFragment extends BackableFragment
-implements View.OnClickListener{
+public class SummerLeavesFragment extends BackableFragment implements
+        View.OnClickListener {
 
-    public LeaveWithoutPayFragment() { }
+    public SummerLeavesFragment() { }
 
     Button btnDateFrom, btnDateTill, btnGoFurther;
     int id_btn, id_btn_from, id_btn_till;
     String strDateFrom, strDateTill, outFormattedDateFrom, outFormattedDateTill,
-            outFormattedDateToday, strdateBefore10days, leaveType;
+            outFormattedDateToday, strdateBefore10days;
     String person_email, person_name, person_pic, empFaculty, empDepartment, empDomain, empDesignation;
+    String TAG = "SummerLeaves";
+    String strSBDate, strSEDate;
     Date dateFrom, dateTill, dateBefore10days;
-    String TAG = "LeavesWithoutPay";
     SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM, yyyy");
     Calendar calendar= Calendar.getInstance();
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_leave_without_pay, container, false);
+       final View view = inflater.inflate(R.layout.fragment_summer_leaves, container, false);
+
         ((FacultyMainActivity) getActivity()).hideFloatingActionButton();
 
         Bundle bundle = getArguments();
@@ -48,16 +52,17 @@ implements View.OnClickListener{
             empDesignation = bundle.getString("Designation");
         }
 
-        outFormattedDateToday= outFormat.format(calendar.getTime());
-        btnDateFrom = view.findViewById(R.id.get_date_from);
+        outFormattedDateToday = outFormat.format(calendar.getTime());
+
+        btnDateFrom = view.findViewById(R.id.get_date_from_sl);
         btnDateFrom.setText(outFormattedDateToday);
         btnDateFrom.setOnClickListener(this);
 
-        btnDateTill = view.findViewById(R.id.get_date_till);
+        btnDateTill= view.findViewById(R.id.get_date_till_sl);
         btnDateTill.setText(outFormattedDateToday);
         btnDateTill.setOnClickListener(this);
 
-        btnGoFurther = view.findViewById(R.id.go_further);
+        btnGoFurther = view.findViewById(R.id.go_further_sl);
         btnGoFurther.setOnClickListener(this);
 
         return view;
@@ -80,29 +85,27 @@ implements View.OnClickListener{
             monthOfYear=monthOfYear+1;
             if(id_btn== id_btn_from)
             {
+                strDateFrom =String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
+                        + "-" + String.valueOf(dayOfMonth);
                 Calendar calBefore10days = Calendar.getInstance();
                 calBefore10days.set(Calendar.DAY_OF_MONTH, calBefore10days.get(Calendar.DAY_OF_MONTH)-10);
                 strdateBefore10days = inFormat.format(calBefore10days.getTime());
-                strDateFrom =String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
-                        + "-" + String.valueOf(dayOfMonth);
+
                 try {
                     dateBefore10days = inFormat.parse(strdateBefore10days);
                     dateFrom = inFormat.parse(strDateFrom);
                     if(dateFrom!=null)
-                    {
                         outFormattedDateFrom = outFormat.format(dateFrom);
-                    }
-                } catch (ParseException e) {
+                }
+                catch (ParseException e) {
                     e.printStackTrace();
                 }
-
                 if(dateFrom.equals(dateBefore10days)|| dateFrom.after(dateBefore10days)){
                     btnDateFrom.setText(outFormattedDateFrom);
                     btnDateFrom.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
                 else {
-                    Toast.makeText(getContext(),"Leave Date Cannot be older than 10 days from the Current Date",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Leave Date Cannot be older than 10 days from the Current Date", Toast.LENGTH_LONG).show();
                     ResetDateFrom(); }
             }
             else if (id_btn==id_btn_till) {
@@ -111,9 +114,8 @@ implements View.OnClickListener{
                 try {
                     dateTill = inFormat.parse(strDateTill);
                     if(dateTill!=null)
-                    {
                         outFormattedDateTill = outFormat.format(dateTill);
-                    }
+
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
@@ -125,58 +127,56 @@ implements View.OnClickListener{
                 {
                     Toast.makeText(getContext(), "Leave Ending Date Cannot be before Leave Beginnig date",
                             Toast.LENGTH_LONG).show();
-                    ResetDateTill();
-                }
+                    ResetDateTill(); }
             }
         }
     };
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.get_date_from:
-                showDatePicker();
-                id_btn_from=v.getId();
-                break;
+    switch (v.getId())
+    {
+        case R.id.get_date_from_sl:
+            showDatePicker();
+            id_btn_from=v.getId();
+            break;
 
-            case R.id.get_date_till:
-                if(dateFrom!= null)
-                {showDatePicker();
-                    id_btn_till=v.getId();}
-                else
-                    Toast.makeText(getContext(),"Set Leave Beginning Date First", Toast.LENGTH_LONG).show();
-                break;
+        case R.id.get_date_till_sl:
+            if(dateFrom!= null)
+            {showDatePicker();
+                id_btn_till=v.getId();}
+            else
+                Toast.makeText(getContext(),"Set Leave Beginning Date First", Toast.LENGTH_LONG).show();
+            break;
 
-            case R.id.go_further:
-                if(dateFrom== null || dateTill == null )
-                    Toast.makeText(getContext(),"Leave Beginning and Ending Dates must be selected", Toast.LENGTH_LONG).show();
+        case R.id.go_further_sl:
+            if(dateFrom== null || dateTill == null )
+                Toast.makeText(getContext(),"Leave Beginning and Ending Dates must be selected", Toast.LENGTH_LONG).show();
 
-                else {
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    LeaveDetailsFragmentFLnLWPnSL leaveDetailsFragment = new LeaveDetailsFragmentFLnLWPnSL();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("TAG", TAG);
-                    bundle.putString("EmailID", person_email);
-                    bundle.putString("Name", person_name);
-                    bundle.putString("Picture", person_pic);
-                    bundle.putString("Faculty", empFaculty);
-                    bundle.putString("Department", empDepartment);
-                    bundle.putString("Domain", empDomain);
-                    bundle.putString("Designation", empDesignation);
-                    bundle.putString("LeaveType", leaveType);
-                    bundle.putString("LeaveFromDate", strDateFrom );
-                    bundle.putString("LeaveTillDate", strDateTill);
-                    leaveDetailsFragment.setArguments(bundle);
-                    transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                            .add(R.id.container_faculty, leaveDetailsFragment)
-                            .addToBackStack(null).commit();
-                }
-                break;
-        }
-        id_btn =v.getId();
+            else {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                LeaveDetailsFragmentFLnLWPnSL leaveDetailsFragment = new LeaveDetailsFragmentFLnLWPnSL();
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG", TAG);
+                bundle.putString("EmailID", person_email);
+                bundle.putString("Name", person_name);
+                bundle.putString("Picture", person_pic);
+                bundle.putString("Faculty", empFaculty);
+                bundle.putString("Department", empDepartment);
+                bundle.putString("Domain", empDomain);
+                bundle.putString("Designation", empDesignation);
+                bundle.putString("LeaveFromDate", strDateFrom );
+                bundle.putString("LeaveTillDate", strDateTill);
+                leaveDetailsFragment.setArguments(bundle);
+                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        .add(R.id.container_faculty, leaveDetailsFragment)
+                        .addToBackStack(null).commit();
+            }
+            break;
+
     }
-
+    id_btn =v.getId();
+}
     public void ResetDateFrom()
     {
         dateFrom=null;
@@ -194,7 +194,7 @@ implements View.OnClickListener{
     @Override
     public void onBackButtonPressed() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.detach(LeaveWithoutPayFragment.this).commit();
+        fragmentTransaction.detach(SummerLeavesFragment.this).commit();
         ((FacultyMainActivity) getActivity()).showFloatingActionButton();
 
     }

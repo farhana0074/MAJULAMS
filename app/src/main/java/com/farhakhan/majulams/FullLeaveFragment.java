@@ -1,17 +1,16 @@
 package com.farhakhan.majulams;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -20,40 +19,75 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class FullLeaveFragment extends Fragment
+public class FullLeaveFragment extends BackableFragment
 implements View.OnClickListener{
 
     public FullLeaveFragment(){}
 
-    Button btnDateFrom;
-    Button btnDateTill;
-    Button btnGoFurther;
+    Button btnDateFrom, btnDateTill, btnGoFurther;
+    RadioGroup radioGroup;
     int id_btn, id_btn_from, id_btn_till;
     String strDateFrom, strDateTill, outFormattedDateFrom, outFormattedDateTill,
-            strDateToday, outFormattedDateToday;
-    Date dateFrom, dateTill, dateToday;
+            outFormattedDateToday, strdateBefore10days, leaveType;
+    String person_email, person_name, person_pic, empFaculty, empDepartment, empDomain, empDesignation;
+    String TAG = "FullLeaves";
+    Date dateFrom, dateTill, dateBefore10days;
     SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM, yyyy");
     Calendar calendar= Calendar.getInstance();
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_full_leave, container, false);
+        final View view = inflater.inflate(R.layout.fragment_full_leave, container, false);
+        ((FacultyMainActivity) getActivity()).hideFloatingActionButton();
+
+        Bundle bundle = getArguments();
+        if (bundle!= null)
+        {
+            person_email = bundle.getString("EmailID");
+            person_name = bundle.getString("Name");
+            person_pic = bundle.getString("Picture");
+            empFaculty = bundle.getString("Faculty");
+            empDepartment= bundle.getString("Department");
+            empDomain = bundle.getString("Domain");
+            empDesignation = bundle.getString("Designation");
+        }
 
         outFormattedDateToday = outFormat.format(calendar.getTime());
 
         btnDateFrom = view.findViewById(R.id.get_date_from_fl);
         btnDateFrom.setText(outFormattedDateToday);
         btnDateFrom.setOnClickListener(this);
-        btnDateFrom.setEnabled(true);
 
         btnDateTill = view.findViewById(R.id.get_date_till_fl);
         btnDateTill.setText(outFormattedDateToday);
         btnDateTill.setOnClickListener(this);
-        btnDateTill.setEnabled(false);
 
         btnGoFurther = view.findViewById(R.id.go_further_fl);
         btnGoFurther.setOnClickListener(this);
-        btnGoFurther.setEnabled(false);
+
+        radioGroup = view.findViewById(R.id.rgLeaveOpt_fl);
+        radioGroup.check(R.id.rbSick_fl);
+        RadioButton RbSick = view.findViewById(R.id.rbSick_fl);
+        leaveType = RbSick.getText().toString();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = view.findViewById(checkedId);
+                switch (checkedId) {
+                    case R.id.rbSick_fl:
+                        leaveType = radioButton.getText().toString();
+                        break;
+                    case R.id.rbCasual_fl:
+                        leaveType = radioButton.getText().toString();
+                        break;
+                    case R.id.rbOfVisit_fl:
+                        leaveType = radioButton.getText().toString();
+                        break;
+                }
+            }
+        });
+
 
         return view;
     }
@@ -73,41 +107,31 @@ implements View.OnClickListener{
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             monthOfYear=monthOfYear+1;
-            strDateToday = inFormat.format(calendar.getTime());
             if(id_btn== id_btn_from)
             {
                 strDateFrom =String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
                         + "-" + String.valueOf(dayOfMonth);
+                Calendar calBefore10days = Calendar.getInstance();
+                calBefore10days.set(Calendar.DAY_OF_MONTH, calBefore10days.get(Calendar.DAY_OF_MONTH)-10);
+                strdateBefore10days = inFormat.format(calBefore10days.getTime());
+
                 try {
-                    dateToday = inFormat.parse(strDateToday);
+                    dateBefore10days = inFormat.parse(strdateBefore10days);
                     dateFrom = inFormat.parse(strDateFrom);
                     if(dateFrom!=null)
                         outFormattedDateFrom = outFormat.format(dateFrom);
-                    }
-                    catch (ParseException e) {
+                }
+                catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(dateFrom.equals(dateToday))
-                {
-                    Toast.makeText(getContext(),"Full Leave can be applied at least 1 day prior",
-                            Toast.LENGTH_LONG).show();
-                    btnDateFrom.setEnabled(true);
-                    ResetDateFrom();
-                }
-                else if(dateFrom.before(dateToday))
-                {
-                    Toast.makeText(getContext(), "Leave Beginning date cannot be before Current date",
-                            Toast.LENGTH_LONG).show();
-                    btnDateFrom.setEnabled(true);
-                    ResetDateFrom();
-                }
-                else {
+                if(dateFrom.equals(dateBefore10days)|| dateFrom.after(dateBefore10days)){
                     btnDateFrom.setText(outFormattedDateFrom);
                     btnDateFrom.setTextColor(getResources().getColor(R.color.colorAccent));
-                    btnDateFrom.setEnabled(false);
-                    btnDateTill.setEnabled(true);
                 }
-                }
+                else {
+                    Toast.makeText(getContext(),"Leave Date Cannot be older than 10 days from the Current Date", Toast.LENGTH_LONG).show();
+                    ResetDateFrom(); }
+            }
             else if (id_btn==id_btn_till) {
                 strDateTill =  String.valueOf(year)+ "-" + String.valueOf(monthOfYear)
                         + "-" + String.valueOf(dayOfMonth);
@@ -122,22 +146,19 @@ implements View.OnClickListener{
                 if(dateTill.equals(dateFrom)||dateTill.after(dateFrom)) {
                     btnDateTill.setText(outFormattedDateTill);
                     btnDateTill.setTextColor(getResources().getColor(R.color.colorAccent));
-                    btnDateTill.setEnabled(false);
-                    btnGoFurther.setEnabled(true);
                 }
                 else
                 {
                     Toast.makeText(getContext(), "Leave Ending Date Cannot be before Leave Beginnig date",
                             Toast.LENGTH_LONG).show();
-                    btnDateTill.setEnabled(true);
-                    ResetDateTill();
-                }
-                }
+                    ResetDateTill(); }
+            }
         }
     };
 
     @Override
-    public void onClick(View v) {switch (v.getId())
+    public void onClick(View v) {
+        switch (v.getId())
     {
         case R.id.get_date_from_fl:
             showDatePicker();
@@ -145,14 +166,39 @@ implements View.OnClickListener{
             break;
 
         case R.id.get_date_till_fl:
-            showDatePicker();
-            id_btn_till=v.getId();
+            if(dateFrom!= null)
+            {showDatePicker();
+                id_btn_till=v.getId();}
+            else
+                Toast.makeText(getContext(),"Set Leave Beginning Date First", Toast.LENGTH_LONG).show();
             break;
 
         case R.id.go_further_fl:
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.container_faculty, new LeaveDetailsFragment()).addToBackStack(null)
-                    .commit();
+            if(dateFrom== null || dateTill == null )
+                Toast.makeText(getContext(),"Leave Beginning and Ending Dates must be selected", Toast.LENGTH_LONG).show();
+
+            else {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                LeaveDetailsFragmentFLnLWPnSL leaveDetailsFragment = new LeaveDetailsFragmentFLnLWPnSL();
+                Bundle bundle = new Bundle();
+                bundle.putString("TAG", TAG);
+                bundle.putString("EmailID", person_email);
+                bundle.putString("Name", person_name);
+                bundle.putString("Picture", person_pic);
+                bundle.putString("Faculty", empFaculty);
+                bundle.putString("Department", empDepartment);
+                bundle.putString("Domain", empDomain);
+                bundle.putString("Designation", empDesignation);
+                bundle.putString("LeaveType", leaveType);
+                bundle.putString("LeaveFromDate", strDateFrom );
+                bundle.putString("LeaveTillDate", strDateTill);
+                leaveDetailsFragment.setArguments(bundle);
+                transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        .add(R.id.container_faculty, leaveDetailsFragment)
+                        .addToBackStack(null).commit();
+            }
+            break;
+
     }
         id_btn =v.getId();
     }
@@ -168,5 +214,13 @@ implements View.OnClickListener{
         dateTill=null;
         btnDateTill.setTextColor(getResources().getColor(R.color.Gray));
         btnDateTill.setText(outFormattedDateToday);
+    }
+
+    @Override
+    public void onBackButtonPressed() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.detach(FullLeaveFragment.this).commit();
+        ((FacultyMainActivity) getActivity()).showFloatingActionButton();
+
     }
 }

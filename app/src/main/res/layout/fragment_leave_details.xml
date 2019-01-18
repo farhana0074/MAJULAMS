@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/White"
-    tools:context=".LeaveDetailsFragment">
+    tools:context=".LeaveDetailsFragmentHL">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="15dip"
         android:background="@color/White">
 
         <TextView
@@ -16,12 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Leave Details"
             android:textColor="@color/Black"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,15 +30,15 @@
 
         <TextView
             android:id="@+id/tvSelectOptions"
-            android:layout_width="346dp"
+            android:layout_width="305dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             android:padding="8dip"
             android:text="How would you like to manage your left class/classes?"
             android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.363"
@@ -46,11 +47,11 @@
 
         <RadioGroup
             android:id="@+id/rgCoverOptions"
-            android:layout_width="325dp"
+            android:layout_width="305dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSelectOptions">
@@ -62,29 +63,19 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:padding="5dip"
-                android:text="You'll take make-up class afterwards"
+                android:text="Will take Make-Up class afterwards"
                 android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rbNoClass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dip"
-                android:textColor="@color/DarkerGray"
-                android:textSize="17sp"
                 android:layout_weight="1"
-                android:text="No class" />
-
-            <RadioButton
-                android:id="@+id/rbOfficial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="17sp"
                 android:padding="5dip"
+                android:text="No class"
                 android:textColor="@color/DarkerGray"
-                android:text="You'll have an official visit" />
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/rbFixture"
@@ -93,9 +84,9 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:padding="5dip"
-                android:text="You'll ask any other teacher to take class in place of you"
+                android:text="Will ask any other teacher to take the class"
                 android:textColor="@color/DarkerGray"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
         </RadioGroup>
 
@@ -103,12 +94,12 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:padding="8dip"
             android:text="Comments: (Optional)"
             android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.044"
@@ -117,36 +108,41 @@
 
         <EditText
             android:id="@+id/etReason"
-            android:layout_width="323dp"
+            android:layout_width="295dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
             android:ems="10"
-            android:hint="Comments"
-            android:textSize="17sp"
+            android:hint="Comments (400 characters max)"
             android:inputType="textMultiLine"
             android:maxLength="400"
             android:padding="8dip"
             android:textColor="@color/DarkerGray"
+            android:textSize="16sp"
+            android:maxLines="12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <Button
             android:id="@+id/btn_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="335dp"
+            android:layout_height="37dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="24dp"
+            android:background="@drawable/main_btn_bkg"
             android:text="Submit"
-            android:textAllCaps="false"
-            android:textSize="17sp"
+            android:textColor="@color/White"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etReason" />
+            app:layout_constraintTop_toBottomOf="@+id/etReason"
+            app:layout_constraintVertical_bias="0.39" />
 
 
     </android.support.constraint.ConstraintLayout>

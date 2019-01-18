@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.farhakhan.majulams.model_classes.EmpFacDepDom;
+import com.farhakhan.majulams.model_classes.HODFacDep;
 import com.farhakhan.majulams.model_classes.UserNamePic;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -65,15 +66,10 @@ public class SignInActivity extends AppCompatActivity implements
         progressBar=findViewById(R.id.login_progress);
         progressBar.setVisibility(View.INVISIBLE);
 
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
-
-
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -193,11 +189,11 @@ public class SignInActivity extends AppCompatActivity implements
                                                    final String empFaculty = empFacDepDom.Faculty;
                                                    String empDepartment= empFacDepDom.Department;
                                                    String empDomain= empFacDepDom.Domain;
-                                                   UserNamePic mUserNamePic = new UserNamePic(person_name, person_pic);
 
+                                                   UserNamePic mUserNamePic = new UserNamePic(person_name, person_pic);
                                                    Map<String, Object> values = mUserNamePic.toMap();
                                                    Map<String, Object> childUpdates = new HashMap<>();
-                                                   childUpdates.put("UserInfo", values);
+                                                   childUpdates.put("Info", values);
 
                                                    mDbReference.child(empFaculty).child(empDepartment).child(empDomain)
                                                            .child(person_email).updateChildren(childUpdates);
@@ -230,8 +226,42 @@ public class SignInActivity extends AppCompatActivity implements
                                                             if (dataSnapshot.hasChild(person_email))
                                                             {
                                                                 Toast.makeText(getApplicationContext(),"welcome "+ person_name, Toast.LENGTH_LONG).show();
-                                                                startActivity(new Intent(SignInActivity.this, HodMainActivity.class));
-                                                                finish();
+                                                                mDbReference.child("Users").child("HoD").child(person_email)
+                                                                        .addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                                                              if(dataSnapshot2!=null)
+                                                                              {
+                                                                                final HODFacDep hodFacDep = dataSnapshot2.getValue(HODFacDep.class);
+                                                                                String hodFaculty = hodFacDep.Faculty;
+                                                                                String hodDepartment = hodFacDep.Department;
+
+                                                                                  UserNamePic mUserNamePic = new UserNamePic(person_name, person_pic);
+                                                                                  Map<String, Object> values = mUserNamePic.toMap();
+                                                                                  Map<String, Object> childUpdates = new HashMap<>();
+                                                                                  childUpdates.put("Info", values);
+
+                                                                                  mDbReference.child(hodFaculty).child(hodDepartment).child("DepartmentDetails")
+                                                                                          .child("HoD").child(person_email).updateChildren(childUpdates);
+                                                                                  Bundle bundle = new Bundle();
+                                                                                  bundle.putString("EmailID", person_email);
+                                                                                  bundle.putString("Picture", person_pic);
+                                                                                  bundle.putString("Name", person_name);
+                                                                                  bundle.putString("Faculty", hodFaculty);
+                                                                                  bundle.putString("Department",hodDepartment);
+                                                                                  Intent intent= new Intent(SignInActivity.this, HodMainActivity.class);
+                                                                                  intent.putExtras(bundle);
+                                                                                  startActivity(intent);
+                                                                                  finish();
+
+                                                                              }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                                                }
+                                                                                } );
                                                             }
                                                             else
                                                             {

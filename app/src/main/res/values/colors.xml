@@ -3,9 +3,11 @@
     <color name="colorPrimary">#2d2965</color>
     <color name="colorPrimaryDark">#c03626</color>
     <color name="colorAccent">#ed3a3e</color>
+    <color name="colorPrimaryDarkTR">#32c03626</color>
+    <color name="colorPrimaryTR">#322d2965</color>
     <color name="DarkerGray">#4f5050</color>
     <color name="Gray">#969898</color>
-    <color name="LightGray">#afacac</color>
+    <color name="LightGray">#c5c2c2</color>
     <color name="LighterGray">#e7f2f2f2</color>
     <color name="White">#ffffff</color>
     <color name="Black">#000000</color>

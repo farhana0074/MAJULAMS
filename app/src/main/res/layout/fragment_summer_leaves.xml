@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/White"
-    tools:context=".FullLeaveFragment">
+    tools:context=".SummerLeavesFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:padding="15dip">
 
         <Button
-            android:id="@+id/go_further_fl"
+            android:id="@+id/go_further_sl"
             android:layout_width="335dp"
             android:layout_height="37dp"
             android:layout_marginStart="8dp"
@@ -33,14 +33,14 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         <TextView
-            android:id="@+id/textViewHdFl"
+            android:id="@+id/textViewHdSl"
             android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="Full Leave Form"
+            android:text="Summer Leaves Form"
             android:textColor="@color/Black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -55,14 +55,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgLeaveOpt_fl">
+            app:layout_constraintTop_toBottomOf="@+id/textViewHdSl">
 
             <TextView
-                android:id="@+id/txt_date_from_fl"
+                android:id="@+id/txt_date_from_sl"
                 android:layout_width="147dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
@@ -76,7 +76,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/get_date_from_fl"
+                android:id="@+id/get_date_from_sl"
                 android:layout_width="147dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
@@ -87,11 +87,11 @@
                 android:textColor="@color/Gray"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_date_from_fl"
-                app:layout_constraintTop_toTopOf="@+id/txt_date_from_fl" />
+                app:layout_constraintStart_toEndOf="@+id/txt_date_from_sl"
+                app:layout_constraintTop_toTopOf="@+id/txt_date_from_sl" />
 
             <TextView
-                android:id="@+id/txt_date_till_fl"
+                android:id="@+id/txt_date_till_sl"
                 android:layout_width="147dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
@@ -104,10 +104,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_date_from_fl" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_date_from_sl" />
 
             <Button
-                android:id="@+id/get_date_till_fl"
+                android:id="@+id/get_date_till_sl"
                 android:layout_width="147dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="8dp"
@@ -120,64 +120,10 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txt_date_till_fl"
-                app:layout_constraintTop_toTopOf="@+id/txt_date_till_fl" />
+                app:layout_constraintStart_toEndOf="@+id/txt_date_till_sl"
+                app:layout_constraintTop_toTopOf="@+id/txt_date_till_sl" />
 
         </android.support.constraint.ConstraintLayout>
-
-        <RadioGroup
-            android:id="@+id/rgLeaveOpt_fl"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="44dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_Ltype_fl">
-
-            <RadioButton
-                android:id="@+id/rbSick_fl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text=" Sick Leave"
-                android:textColor="@color/DarkerGray"
-                android:textSize="16sp" />
-
-            <RadioButton
-                android:id="@+id/rbCasual_fl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" Casual Leave"
-                android:textColor="@color/DarkerGray"
-                android:textSize="16sp" />
-
-
-            <RadioButton
-                android:id="@+id/rbOfVisit_fl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=" Official Visit"
-                android:textColor="@color/DarkerGray"
-                android:textSize="16sp" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/tv_Ltype_fl"
-            android:layout_width="137dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center_vertical"
-            android:text="Leave Type:"
-            android:textColor="@color/DarkerGray"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHdFl" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

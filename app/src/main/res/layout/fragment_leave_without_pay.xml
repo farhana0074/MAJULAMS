@@ -7,114 +7,138 @@
     android:background="@color/White"
     tools:context=".LeaveWithoutPayFragment">
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/White">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dip"
+        android:background="@color/White">
 
-    <TextView
-        android:id="@+id/textViewHd"
-        android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="Leave Without Pay Form"
-        android:textColor="@color/Black"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewHd"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="Leave Without Pay Form"
+            android:textColor="@color/Black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_date_from"
-        android:layout_width="137dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="Beginning Date:"
-        android:textColor="@color/DarkerGray"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHd" />
 
-    <Button
-        android:id="@+id/get_date_from"
-        android:layout_width="137dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="44dp"
-        android:background="@color/LighterGray"
-        android:text="Date_From"
-        android:textAllCaps="false"
-        android:textColor="@color/Gray"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txt_date_from"
-        app:layout_constraintTop_toTopOf="@+id/txt_date_from" />
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHd">
 
-    <TextView
-        android:id="@+id/txt_date_till"
-        android:layout_width="137dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="32dp"
-        android:text="Ending Date:   "
-        android:gravity="center_vertical"
-        android:textColor="@color/DarkerGray"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_date_from" />
+            <TextView
+                android:id="@+id/txt_date_from"
+                android:layout_width="137dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Beginning Date:"
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/get_date_till"
-        android:layout_width="137dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="44dp"
-        android:background="@color/LighterGray"
-        android:text="Date_Till"
-        android:textAllCaps="false"
-        android:textColor="@color/Gray"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txt_date_till"
-        app:layout_constraintTop_toTopOf="@+id/txt_date_till" />
+            <Button
+                android:id="@+id/get_date_from"
+                android:layout_width="137dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/LighterGray"
+                android:text="Date_From"
+                android:textAllCaps="false"
+                android:textColor="@color/Gray"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_date_from"
+                app:layout_constraintTop_toTopOf="@+id/txt_date_from" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="281dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:padding="5dip"
-        android:text="@string/leave_without_pay_note"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_date_till" />
+            <Button
+                android:id="@+id/get_date_till"
+                android:layout_width="137dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/LighterGray"
+                android:text="Date_Till"
+                android:textAllCaps="false"
+                android:textColor="@color/Gray"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/txt_date_from"
+                app:layout_constraintTop_toTopOf="@+id/txt_date_till" />
 
-    <Button
-        android:id="@+id/go_further"
-        android:layout_width="wrap_content"
-        android:layout_height="59dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:text="Enter Further Details"
-        android:textAllCaps="false"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <TextView
+                android:id="@+id/txt_date_till"
+                android:layout_width="137dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:text="Ending Date:   "
+                android:textColor="@color/DarkerGray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_date_from" />
 
-</android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="281dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:padding="5dip"
+            android:text="@string/leave_without_pay_note"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <Button
+            android:id="@+id/go_further"
+            android:layout_width="335dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/main_btn_bkg"
+            android:text="NEXT                    >>"
+            android:textColor="@color/White"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
