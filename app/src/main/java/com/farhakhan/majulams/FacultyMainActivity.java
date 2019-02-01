@@ -1,17 +1,19 @@
 package com.farhakhan.majulams;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenu;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -64,6 +66,7 @@ public class FacultyMainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     public  FabSpeedDial fabSpeedDial;
     public FrameLayout frameLayout, container;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +138,7 @@ public class FacultyMainActivity extends AppCompatActivity
 
                                  }
                              });
+
 
                      TextView tvRemainingHL = findViewById(R.id.hl_rem);
                      tvRemainingHL.setText("Remaining:  ");
@@ -274,14 +278,145 @@ public class FacultyMainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+
+
+        final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+            final Query queryCheck = mDbReference.child(empFaculty).child(empDepartment).child(empDomain)
+                    .child(person_email).child("LeavesHistory");
+
+            ((DatabaseReference) queryCheck).child("HalfLeaves").orderByChild("Seen")
+                    .equalTo("No").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshotNavHL) {
+                    menu = navigationView.getMenu();
+                    final MenuItem alertItem = menu.findItem(R.id.nav_alert);
+                    final Drawable alertIcon = alertItem.getIcon();
+                    final SpannableString strTitle = new SpannableString(alertItem.getTitle().toString());
+
+                    if (dataSnapshotNavHL.exists())
+                     {
+                         toggle.setDrawerIndicatorEnabled(false);
+                         toggle.setHomeAsUpIndicator(R.drawable.toggle_with_notif);
+                         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                             @Override
+                             public void onClick(View v) {
+                                 if (drawer.isDrawerVisible(GravityCompat.START))
+                                     drawer.closeDrawer(GravityCompat.START);
+                                 else
+                                     drawer.openDrawer(GravityCompat.START);
+                             }});
+
+                         alertIcon.mutate().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                        alertItem.setIcon(alertIcon);
+                        strTitle.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, strTitle.length(), 0);
+                        alertItem.setTitle(strTitle);
+                    }
+                    else {
+                        ((DatabaseReference) queryCheck).child("FullLeaves").orderByChild("Seen").equalTo("No").addValueEventListener
+                                        (new ValueEventListener()
+                                         {
+                                             @Override
+                                             public void onDataChange(@NonNull DataSnapshot dataSnapshotNavFL) {
+                                                 if(dataSnapshotNavFL.exists())
+                                                 {
+                                                     toggle.setDrawerIndicatorEnabled(false);
+                                                     toggle.setHomeAsUpIndicator(R.drawable.toggle_with_notif);
+                                                     toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                                                         @Override
+                                                         public void onClick(View v) {
+                                                             if (drawer.isDrawerVisible(GravityCompat.START))
+                                                                 drawer.closeDrawer(GravityCompat.START);
+                                                             else
+                                                                 drawer.openDrawer(GravityCompat.START);
+                                                         }});
+
+                                                     alertIcon.mutate().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                                                     alertItem.setIcon(alertIcon);
+                                                     strTitle.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, strTitle.length(), 0);
+                                                     alertItem.setTitle(strTitle);
+                                                 }
+                                                   else
+                                                 {
+                                                     ((DatabaseReference) queryCheck).child("LeavesWithoutPay").orderByChild("Seen").equalTo("No").addValueEventListener
+                                                             (new ValueEventListener() {
+                                                                 @Override
+                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshotNavLWP) {
+                                                                     if(dataSnapshotNavLWP.exists()) {
+                                                                         toggle.setDrawerIndicatorEnabled(false);
+                                                                         toggle.setHomeAsUpIndicator(R.drawable.toggle_with_notif);
+                                                                         toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                                                                             @Override
+                                                                             public void onClick(View v) {
+                                                                                 if (drawer.isDrawerVisible(GravityCompat.START))
+                                                                                     drawer.closeDrawer(GravityCompat.START);
+                                                                                 else
+                                                                                     drawer.openDrawer(GravityCompat.START);
+                                                                             }});
+
+                                                                         alertIcon.mutate().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                                                                         alertItem.setIcon(alertIcon);
+                                                                         strTitle.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, strTitle.length(), 0);
+                                                                         alertItem.setTitle(strTitle);
+                                                                     }
+                                                                     else
+                                                                     {
+                                                                         ((DatabaseReference) queryCheck).child("SummerLeaves").orderByChild("Seen").equalTo("No").addValueEventListener
+                                                                                 (new ValueEventListener() {
+                                                                                     @Override
+                                                                                     public void onDataChange(@NonNull DataSnapshot dataSnapshotNavSL) {
+                                                                                         if(dataSnapshotNavSL.exists())
+                                                                                         {
+                                                                                             toggle.setDrawerIndicatorEnabled(false);
+                                                                                             toggle.setHomeAsUpIndicator(R.drawable.toggle_with_notif);
+                                                                                             toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                                                                                                 @Override
+                                                                                                 public void onClick(View v) {
+                                                                                                     if (drawer.isDrawerVisible(GravityCompat.START))
+                                                                                                         drawer.closeDrawer(GravityCompat.START);
+                                                                                                     else
+                                                                                                         drawer.openDrawer(GravityCompat.START);
+                                                                                                 }});
+                                                                                             alertIcon.mutate().setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN);
+                                                                                             alertItem.setIcon(alertIcon);
+                                                                                             strTitle.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, strTitle.length(), 0);
+                                                                                             alertItem.setTitle(strTitle);
+                                                                                         }
+
+                                                                                         else
+                                                                                         {
+                                                                                             toggle.setDrawerIndicatorEnabled(true);
+                                                                                             drawer.addDrawerListener(toggle);
+                                                                                             toggle.syncState();
+                                                                                             alertItem.setIcon(getResources().getDrawable(R.drawable.alert_icon));
+                                                                                             alertItem.setTitle(alertItem.getTitle().toString());
+                                                                                         }
+                                                                                     }
+
+                                                                                     @Override
+                                                                                     public void onCancelled(@NonNull DatabaseError databaseError) { }});
+                                                                     }
+                                                                 }
+
+                                                                 @Override
+                                                                 public void onCancelled(@NonNull DatabaseError databaseError) { }});
+                                                 }
+                                                 }
+                                                 @Override
+                                                 public void onCancelled(@NonNull DatabaseError databaseError) { }});
+                    }
+                    }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         View headerview = navigationView.getHeaderView(0);
 
             NavCmi = headerview.findViewById(R.id.user_pic_faculty);
@@ -335,11 +470,7 @@ public class FacultyMainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
+         int id = item.getItemId();
         if (id == R.id.action_log_out) {
             FirebaseAuth.getInstance().signOut();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -373,7 +504,7 @@ public class FacultyMainActivity extends AppCompatActivity
             transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.container_faculty, summerLeaves)
                     .addToBackStack(null).commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_alert) {
 
         } else if (id == R.id.nav_slideshow) {
 

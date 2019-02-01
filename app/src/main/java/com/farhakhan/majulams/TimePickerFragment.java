@@ -23,7 +23,6 @@ public class TimePickerFragment extends DialogFragment {
         hours = args.getInt("hours");
         mins = args.getInt("mins");
         is24HourView =args.getBoolean("is24HourView");
-        am_pm=args.getInt("am_pm");
     }
 
     @Override

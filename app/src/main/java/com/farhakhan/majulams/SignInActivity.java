@@ -3,7 +3,6 @@ package com.farhakhan.majulams;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -142,7 +141,13 @@ public class SignInActivity extends AppCompatActivity implements
                                                 if (dataSnapshot.hasChild(person_email))
                                                 {
                                                     Toast.makeText(getApplicationContext(),"welcome "+ person_name, Toast.LENGTH_LONG).show();
-                                                    startActivity(new Intent(SignInActivity.this, AdminMainActivity.class));
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString("EmailID", person_email);
+                                                    bundle.putString("Picture", person_pic);
+                                                    bundle.putString("Name", person_name);
+                                                    Intent intent= new Intent(SignInActivity.this, AdminMainActivity.class);
+                                                    intent.putExtras(bundle);
+                                                    startActivity(intent);
                                                     finish();
                                                 }
                                                 else
@@ -258,9 +263,7 @@ public class SignInActivity extends AppCompatActivity implements
                                                                                 }
 
                                                                                 @Override
-                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                                                }
+                                                                                public void onCancelled(@NonNull DatabaseError databaseError) { }
                                                                                 } );
                                                             }
                                                             else

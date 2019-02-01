@@ -12,12 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class AdminMainFragment extends Fragment {
+public class AdminProcessedHL extends Fragment {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             // Please note the third parameter should be false, otherwise a java.lang.IllegalStateException maybe thrown.
-            View view = inflater.inflate(R.layout.fragment_admin__main, container, false);
+            View view = inflater.inflate(R.layout.fragment_admin_processed_hl, container, false);
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy ");
             String strDate = dateFormat.format(calendar.getTime());

@@ -4,21 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_admin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AdminMainActivity"
-    android:background="@color/White"
-    tools:showIn="@layout/app_bar_admin_main">
+    android:background="@android:color/white"
+    tools:context=".AdminDepWiseLeaves">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tvDepName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Department Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/tablayoutFOCEDep"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <android.support.v7.widget.Toolbar
-            android:id="@+id/facToolbar"
+            android:id="@+id/toolbarFOCEDep"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@android:color/transparent"
+            android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,37 +40,46 @@
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout"
+            android:id="@+id/tablayoutFOCEDep"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            app:tabMode="scrollable"
             android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDepName"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextAppearance="@style/MyCustomTextAppearance"
             app:tabTextColor="@android:color/black">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabfoce"
+                android:id="@+id/tabHLFOCE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabfoba"
+                android:id="@+id/tabFLFOCE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tabfols"
+                android:id="@+id/tabLWPFOCE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabSLFOCE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/viewPagerFOCEDep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tablayout">
-    </android.support.v4.view.ViewPager>
+            app:layout_constraintTop_toBottomOf="@+id/tablayoutFOCEDep">
+        </android.support.v4.view.ViewPager>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -24,9 +24,9 @@ implements View.OnClickListener {
     RadioGroup radioGroup;
     SimpleDateFormat inFormatDate = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat outFormatDate = new SimpleDateFormat("dd MMM, yyyy");
-    SimpleDateFormat inFormatTime = new SimpleDateFormat("h:mm");
+    SimpleDateFormat inFormatTime = new SimpleDateFormat("H:mm");
     SimpleDateFormat outFormatTime = new SimpleDateFormat("h:mm a");
-    SimpleDateFormat BnEcheck= new SimpleDateFormat("yyyy-MM-dd, h:mm" );
+    SimpleDateFormat BnEcheck= new SimpleDateFormat("yyyy-MM-dd, H:mm" );
     Calendar calendar= Calendar.getInstance();
     Calendar calAftr1hr = Calendar.getInstance();
     Calendar cal8_30am = Calendar.getInstance();
@@ -149,7 +149,6 @@ implements View.OnClickListener {
         args.putInt("hours", calendar.get(Calendar.HOUR_OF_DAY));
         args.putInt("mins", calendar.get(Calendar.MINUTE));
         args.putBoolean("is24HourView", false);
-        args.putInt("am_pm",calendar.get(Calendar.AM_PM));
         timePicker.setArguments(args);
         timePicker.setCallBack(ontime);
         timePicker.show(getFragmentManager(), "Time Picker");
@@ -181,23 +180,22 @@ implements View.OnClickListener {
                 cal9pm.set(Calendar.HOUR_OF_DAY, 21);
                 time9pm= cal9pm.getTime();
 
-                if(DnBTcheck.after(time8_30am) || DnBTcheck.equals(time8_30am))
-                {
-                    if(DnBTcheck.before(time9pm)|| DnBTcheck.equals(time9pm))
-                    {
+          if(DnBTcheck.after(time8_30am) || DnBTcheck.equals(time8_30am))
+              {
+               if(DnBTcheck.before(time9pm)|| DnBTcheck.equals(time9pm))
+              {
                         btnBegnTime.setText(outFormattedBTime);
                     btnBegnTime.setTextColor(getResources().getColor(R.color.colorAccent));
-                        }
-                    else {
-                        Toast.makeText(getContext(), "Leave Beginning Time should be at least 1 hr before 10:00 pm", Toast.LENGTH_LONG).show();
-                        resetBegnTime();
+                   }
+              else {
+                    Toast.makeText(getContext(), "Leave Beginning Time should be at least 1 hr before 10:00 pm", Toast.LENGTH_LONG).show();
+                       resetBegnTime();
                     }
                 }
-                else
-                {
+               else{
                     Toast.makeText(getContext(), "Leave Beginning Time should be after 8:30 am", Toast.LENGTH_LONG).show();
-                     resetBegnTime();
-                }
+                  resetBegnTime();
+              }
             }
 
             else if (id_btn == id_btn_end){

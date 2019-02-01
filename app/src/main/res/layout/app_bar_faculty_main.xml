@@ -68,10 +68,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:background="@color/LightGray"
-            android:padding="4dip"
+            android:padding="1dip"
             android:text="Year"
             android:textColor="@color/Black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
     </android.support.design.widget.AppBarLayout>
 

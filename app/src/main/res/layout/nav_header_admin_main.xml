@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
-    android:gravity="top"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin_top"
@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_pic_faculty"
+            android:id="@+id/user_pic_admin"
             android:layout_width="92dp"
             android:layout_height="92dp"
             android:layout_gravity="center"
@@ -39,9 +39,8 @@
 
     </LinearLayout>
 
-
     <TextView
-        android:id="@+id/user_name_faculty"
+        android:id="@+id/user_name_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -49,9 +48,18 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/user_email_faculty"
+        android:id="@+id/txt_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Administrator"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/user_email_admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:text="@string/nav_header_subtitle" />
+
 
 </LinearLayout>
