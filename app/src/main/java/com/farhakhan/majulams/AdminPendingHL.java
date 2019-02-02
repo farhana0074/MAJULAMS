@@ -248,8 +248,6 @@ public class AdminPendingHL extends BackableFragment {
 
                                         ((DatabaseReference) queryEmp).child("LeaveApprovalStatus")
                                                 .setValue("Processed");
-                                        ((DatabaseReference) queryEmp).child("AdminComments")
-                                                .setValue(strComment);
                                         ((DatabaseReference) queryEmp).child("AdminApproval").setValue("Approved");
                                         ((DatabaseReference) queryEmp).child("Seen").setValue("No");
 
@@ -318,8 +316,6 @@ public class AdminPendingHL extends BackableFragment {
 
                                         ((DatabaseReference) queryEmp).child("LeaveApprovalStatus")
                                                 .setValue("Processed");
-                                        ((DatabaseReference) queryEmp).child("AdminComments")
-                                                .setValue(strComment);
                                         ((DatabaseReference) queryEmp).child("AdminApproval").setValue("Disapproved");
                                         ((DatabaseReference) queryEmp).child("Seen").setValue("No");
 

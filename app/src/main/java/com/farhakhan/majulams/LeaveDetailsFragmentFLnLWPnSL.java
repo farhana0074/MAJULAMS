@@ -13,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.farhakhan.majulams.model_classes.FLnLWPnSLEmpHistoty;
+import com.farhakhan.majulams.model_classes.FLnLWPnSLEmpHistory;
 import com.farhakhan.majulams.model_classes.FLforHodApprovl;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -115,7 +115,7 @@ public class LeaveDetailsFragmentFLnLWPnSL extends BackableFragment {
                                 mDbReference.child(empFaculty).child(empDepartment).child("EmployeeLeaves")
                                         .child(TAG).child(idKey).setValue(fLforHodApprovl);
 
-                                FLnLWPnSLEmpHistoty fLnLWPnSLEmpHistoty = new FLnLWPnSLEmpHistoty();
+                                FLnLWPnSLEmpHistory fLnLWPnSLEmpHistoty = new FLnLWPnSLEmpHistory();
                                 fLnLWPnSLEmpHistoty.LeaveType = leaveType;
                                 fLnLWPnSLEmpHistoty.LeaveBeginningDate = strDateFrom;
                                 fLnLWPnSLEmpHistoty.LeaveEndingDate = strDateTill;

@@ -189,14 +189,14 @@ public class AdminMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_summers) {
-            Fragment admin = new AdminProcessedHL();
+        if (id == R.id.nav_add_user) {
+            Fragment addUser = new AddUserMain();
             FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.container_admin, admin)
+            transaction.replace(R.id.container_admin,addUser)
                     .addToBackStack(null).commit();
         } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_manage) {
 

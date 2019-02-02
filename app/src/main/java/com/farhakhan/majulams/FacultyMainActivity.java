@@ -56,7 +56,8 @@ public class FacultyMainActivity extends AppCompatActivity
     public String person_email, person_name, person_pic, mperson_email;
     public String strDate, strDay, empDesignation, currentYear;
     public String empFaculty, empDepartment, empDomain;
-    public Long TotalLeavesHL, TotalLeavesFL, TotalLeavesLWP, TotalLeavesSL;
+    public Long TotalLeavesHL, TotalLeavesFL, TotalLeavesLWP, TotalLeavesSL, AvailedHL, RemainingHL,
+    AvailedFL, RemainingFL, AvailedLWP, RemainingLWP, AvailedSL, RemainingSL;
     public CircleImageView NavCmi;
     public CircleImageView MainCmi;
     private FirebaseAuth mFirebaseAuth;
@@ -101,7 +102,7 @@ public class FacultyMainActivity extends AppCompatActivity
             Query queryCurrYear = mDbReference.child("Years").orderByChild("Status").equalTo("Current");
                     queryCurrYear.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                  for (DataSnapshot child: dataSnapshot.getChildren()){
                      currentYear = child.getKey();
                      TextView txt_currentYear = findViewById(R.id.app_bar_year);
@@ -129,6 +130,81 @@ public class FacultyMainActivity extends AppCompatActivity
                                          tvTotalLWP.setText("Total Leaves Without Pay:  "+ TotalLeavesLWP);
                                          tvTotalSL.setText("Total Summer Leaves:  "+ TotalLeavesSL);
 
+                                        Query queryMainLStatus = mDbReference.child(empFaculty).child(empDepartment)
+                                                .child(empDomain).child(person_email).child("LeavesStatus");
+
+                                        ((DatabaseReference) queryMainLStatus).child("HalfLeaves").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotAvlHL) {
+                                                if(dataSnapshotAvlHL!=null) {
+                                                    TextView tvAvailedHL = findViewById(R.id.hl_avld);
+                                                    AvailedHL = (Long) dataSnapshotAvlHL.getValue();
+                                                    tvAvailedHL.setText("Availed:  "+ AvailedHL);
+                                                    TextView tvRemainingHL = findViewById(R.id.hl_rem);
+                                                    RemainingHL = TotalLeavesHL-AvailedHL;
+                                                   if(RemainingHL>=0)
+                                                    tvRemainingHL.setText("Remaining:  "+ RemainingHL);
+                                                   else
+                                                       tvRemainingHL.setText("Remaining:  0");
+                                                }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) { }});
+
+
+                                        ((DatabaseReference) queryMainLStatus).child("FullLeaves").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotAvlFL) {
+                                               if(dataSnapshotAvlFL!=null) {
+                                                   TextView tvAvailedFL = findViewById(R.id.fl_avld);
+                                                   AvailedFL = (Long) dataSnapshotAvlFL.getValue();
+                                                   tvAvailedFL.setText("Availed:  "+AvailedFL);
+                                                   TextView tvRemainingFL = findViewById(R.id.fl_rem);
+                                                   RemainingFL = TotalLeavesFL-AvailedFL;
+                                                   if(RemainingFL>=0)
+                                                   tvRemainingFL.setText("Remaining:  "+RemainingFL);
+                                                   else
+                                                       tvRemainingFL.setText("Remaining:  0");
+                                               }
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) { }});
+
+                                        ((DatabaseReference) queryMainLStatus).child("LeavesWithoutPay").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotAvlLWP) {
+                                                TextView tvAvailedLWP = findViewById(R.id.pl_avld);
+                                                AvailedLWP = (Long) dataSnapshotAvlLWP.getValue();
+                                                tvAvailedLWP.setText("Availed:  "+AvailedLWP);
+                                                TextView tvRemainingLWP = findViewById(R.id.pl_rem);
+                                                RemainingLWP = TotalLeavesLWP - AvailedLWP;
+                                                if(RemainingLWP>=0)
+                                                tvRemainingLWP.setText("Remaining:  "+ RemainingLWP);
+                                                else
+                                                    tvRemainingLWP.setText("Remaining:  0");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) { }});
+                                        ((DatabaseReference) queryMainLStatus).child("SummerLeaves").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotAvlSL) {
+                                                if (dataSnapshotAvlSL!= null) {
+                                                    TextView tvAvailedSL = findViewById(R.id.sl_avld);
+                                                    AvailedSL = (Long) dataSnapshotAvlSL.getValue();
+                                                    tvAvailedSL.setText("Availed:  "+AvailedSL);
+                                                    TextView tvRemainingSL = findViewById(R.id.sl_rem);
+                                                    RemainingSL = TotalLeavesSL-AvailedSL;
+                                                    if(RemainingSL>=0)
+                                                    tvRemainingSL.setText("Remaining:  "+RemainingSL);
+                                                    else
+                                                        tvRemainingSL.setText("Remaining:  0");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) { }
+                                        });
 
                                      }
                                  }
@@ -138,33 +214,6 @@ public class FacultyMainActivity extends AppCompatActivity
 
                                  }
                              });
-
-
-                     TextView tvRemainingHL = findViewById(R.id.hl_rem);
-                     tvRemainingHL.setText("Remaining:  ");
-
-                     TextView tvRemainingFL = findViewById(R.id.fl_rem);
-                     tvRemainingFL.setText("Remaining:  ");
-
-                     TextView tvRemainingLWP = findViewById(R.id.pl_rem);
-                     tvRemainingLWP.setText("Remaining:  ");
-
-                     TextView tvRemainingSL = findViewById(R.id.sl_rem);
-                     tvRemainingSL.setText("Remaining:  ");
-
-                     TextView tvAvailedHL = findViewById(R.id.hl_avld);
-                     tvAvailedHL.setText("Availed:  ");
-
-                     TextView tvAvailedFL = findViewById(R.id.fl_avld);
-                     tvAvailedFL.setText("Availed:  ");
-
-                     TextView tvAvailedLWP = findViewById(R.id.pl_avld);
-                     tvAvailedLWP.setText("Availed:  ");
-
-                     TextView tvAvailedSL = findViewById(R.id.sl_avld);
-                     tvAvailedSL.setText("Availed:  ");
-
-
                  }
                 }
                 @Override
@@ -490,25 +539,36 @@ public class FacultyMainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("EmailID", person_email);
+        bundle.putString("Faculty", empFaculty);
+        bundle.putString("Department", empDepartment);
+        bundle.putString("Domain", empDomain);
 
         if (id == R.id.nav_summers) {
             Fragment summerLeaves = new SummerLeavesFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("EmailID", person_email);
-            bundle.putString("Faculty", empFaculty);
-            bundle.putString("Department", empDepartment);
             bundle.putString("Domain", empDomain);
             bundle.putString("Designation", empDesignation);
             summerLeaves.setArguments(bundle);
-            FragmentTransaction transaction= getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .replace(R.id.container_faculty, summerLeaves)
                     .addToBackStack(null).commit();
-        } else if (id == R.id.nav_alert) {
+        }
 
-        } else if (id == R.id.nav_slideshow) {
+        else if (id == R.id.nav_alert) {
+            Fragment facultyLeaveNotifications = new FacultyLeaveNotifications();
+            facultyLeaveNotifications.setArguments(bundle);
+            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.container_faculty, facultyLeaveNotifications)
+                    .addToBackStack(null).commit();
+        }
 
-        } else if (id == R.id.nav_manage) {
+        else if (id == R.id.nav_history) {
+
+        }
+
+        else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 

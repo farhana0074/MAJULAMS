@@ -17,4 +17,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string-array name="Faculties">
+        <item>FOCE</item>
+        <item>FOBA</item>
+        <item>FOLS</item>
+    </string-array>
+
+    <string-array name="DepartmentsFOCE">
+        <item>Computer Sciences </item>
+        <item>Computer Engineering </item>
+    </string-array>
+
+    <string-array name="DepartmentsFOBA">
+        <item>Management Sciences</item>
+        <item>Finance</item>
+        <item>Economics</item>
+    </string-array>
+
+    <string-array name="DepartmentsFOLS">
+        <item>Life Sciences</item>
+    </string-array>
 </resources>

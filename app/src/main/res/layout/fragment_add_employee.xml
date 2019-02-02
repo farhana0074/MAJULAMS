@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    tools:context=".AddEmployee">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTitleHdEmp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="Add Employee Details"
+                android:textColor="@color/Black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_submit_Emp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitleHdEmp"
+                app:layout_constraintVertical_bias="0.508">
+
+                <TextView
+                    android:id="@+id/textView6Emp"
+                    android:layout_width="116dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="4dp"
+                    android:text="Faculty: "
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView18Emp"
+                    android:layout_width="116dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="4dp"
+                    android:text="Department: "
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6Emp" />
+
+                <TextView
+                    android:id="@+id/textView18Emp2"
+                    android:layout_width="116dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="4dp"
+                    android:text="Domain: "
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView19Emp" />
+
+                <TextView
+                    android:id="@+id/textView18Emp3"
+                    android:layout_width="116dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="4dp"
+                    android:text="Designation:  "
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18Emp2" />
+
+                <TextView
+                    android:id="@+id/textView19Emp"
+                    android:layout_width="116dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:padding="4dp"
+                    android:text="Email: "
+                    android:textColor="@color/DarkerGray"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18Emp" />
+
+                <Spinner
+                    android:id="@+id/spinnerEmp"
+                    android:layout_width="225dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView6Emp"
+                    app:layout_constraintStart_toEndOf="@+id/textView6Emp"
+                    app:layout_constraintTop_toTopOf="@+id/textView6Emp"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Spinner
+                    android:id="@+id/spinner2Emp"
+                    android:layout_width="225dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView18Emp"
+                    app:layout_constraintStart_toEndOf="@+id/textView18Emp"
+                    app:layout_constraintTop_toTopOf="@+id/textView18Emp" />
+
+                <EditText
+                    android:id="@+id/editTextEmp"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView19Emp"
+                    app:layout_constraintStart_toEndOf="@+id/textView19Emp"
+                    app:layout_constraintTop_toTopOf="@+id/textView19Emp" />
+
+                <EditText
+                    android:id="@+id/editTextEmp2"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:hint="CS/ English/ Math etc"
+                    android:inputType="text"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView18Emp2"
+                    app:layout_constraintStart_toEndOf="@+id/textView18Emp2"
+                    app:layout_constraintTop_toTopOf="@+id/textView18Emp2" />
+
+                <EditText
+                    android:id="@+id/editTextEmp3"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:hint="Professor/ Lecturer etc."
+                    android:inputType="text"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView18Emp3"
+                    app:layout_constraintStart_toEndOf="@+id/textView18Emp3"
+                    app:layout_constraintTop_toTopOf="@+id/textView18Emp3" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <Button
+                android:id="@+id/btn_submit_Emp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="36dp"
+                android:background="@drawable/main_btn_bkg"
+                android:padding="4dp"
+                android:textAllCaps="false"
+                android:text="Add Employee"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</FrameLayout>
