@@ -256,17 +256,19 @@ public class AdminPendingHL extends BackableFragment {
                                                .child(ApplicantDomain).child(ApplicantEmail).child("LeavesStatus")
                                                .child("HalfLeaves");
 
-                                       queryHLStatus.addValueEventListener(new ValueEventListener() {
+                                       queryHLStatus.addListenerForSingleValueEvent(new ValueEventListener() {
                                            @Override
                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotStatus) {
                                                if(dataSnapshotStatus!=null)
+                                               {
                                                    totalHL = ((long) dataSnapshotStatus.getValue());
                                                    updatedHL = totalHL+1;
-                                               ((DatabaseReference) queryHLStatus).setValue(updatedHL);
+                                                   ((DatabaseReference) queryHLStatus).setValue(updatedHL);
+
+                                               }
                                            }
                                            @Override
                                            public void onCancelled(@NonNull DatabaseError databaseError) { }});
-
 
                                         Toast.makeText(getContext(), "Approved", Toast.LENGTH_LONG).show();
                                         onBackButtonPressed();
