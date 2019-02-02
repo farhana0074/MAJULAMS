@@ -1,50 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/White"
     tools:context=".AdminProcessedHL">
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/container_admin_pr_hl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/White">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/Faculty_Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Date_Today"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/Faculty_Day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:text="Day_Today"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/DarkerGray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/Faculty_Date"
-            app:layout_constraintTop_toTopOf="parent">
+            <ScrollView
+                android:id="@+id/scrollView4pr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </TextView>
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/White"
+                    android:padding="8dip">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout4_admin_pr_hl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/hdApplied_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:padding="8dip"
+                            android:text="Applied By:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_person_pic_admin_pr_hl"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvApplicant_name_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdApplied_admin_pr_hl" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_person_pic_admin_pr_hl"
+                            android:layout_width="88dp"
+                            android:layout_height="74dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@color/Gray"
+                            app:civ_border_color="#FF000000"
+                            app:civ_border_width="2dp"
+                            app:layout_constraintBottom_toTopOf="@+id/tvApplicant_desig_admin_pr_hl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/tvApplicant_name_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+
+                        <TextView
+                            android:id="@+id/hdDesignation_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Designation:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvApplicant_name_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/tvApplicant_desig_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdDesignation_admin_pr_hl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/hdDesignation_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdDesignation_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/hdDomain_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Domain:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdDesignation_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/tvApplicant_domain_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdDomain_admin_pr_hl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/hdDomain_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdDomain_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textView2_admin_pr_approval"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:gravity="center"
+                        android:padding="8dip"
+                        android:text="Approval by HoD"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6_admin_pr_hl" />
+
+                    <TextView
+                        android:id="@+id/textView2_admin_pr_hl"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/colorPrimaryDarkTR"
+                        android:gravity="center"
+                        android:padding="8dip"
+                        android:text="Half Leave"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4_admin_pr_hl" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout6_admin_pr_hl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2_admin_pr_hl">
+
+                        <TextView
+                            android:id="@+id/hdLeaveBDate_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Leave Date:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveType_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdLeaveEDate_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Beginning Time:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveBDate_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdLeaveETime_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Ending Time:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveEDate_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdLeaveC_Opt_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Managing Method:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveETime_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdComments_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Comments:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvLeave_C_Opt_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdAppDate_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Applying Date:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tvComments_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdAppTime_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Applying Time:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdAppDate_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdLeaveType_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="Leave Type:"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvLeave_Type_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdLeaveType_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdLeaveType_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdLeaveType_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/tvLeave_Date_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdLeaveBDate_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdLeaveBDate_admin_pr_hl"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveType_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.111" />
+
+                        <TextView
+                            android:id="@+id/tvLeave_BTime_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdLeaveEDate_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdLeaveEDate_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdLeaveEDate_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/tvLeave_ETime_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdLeaveETime_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdLeaveETime_admin_pr_hl"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveEDate_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/tvLeave_C_Opt_admin_pr_hl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdLeaveC_Opt_admin_pr_hl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/hdLeaveC_Opt_admin_pr_hl"
+                            app:layout_constraintTop_toBottomOf="@+id/hdLeaveETime_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/tvComments_admin_pr_hl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdComments_admin_pr_hl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/hdComments_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdComments_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/tvAppDate_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdAppDate_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdAppDate_admin_pr_hl"
+                            app:layout_constraintTop_toBottomOf="@+id/tvComments_admin_pr_hl"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <TextView
+                            android:id="@+id/tvAppTime_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@id/hdAppTime_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdAppTime_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdAppTime_admin_pr_hl" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2_admin_pr_approval">
+
+
+                        <TextView
+                            android:id="@+id/tvCommentsHod_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/hdCommentsHoD_admin_pr_hl"
+                            app:layout_constraintStart_toEndOf="@+id/hdCommentsHoD_admin_pr_hl"
+                            app:layout_constraintTop_toTopOf="@+id/hdCommentsHoD_admin_pr_hl" />
+
+                        <TextView
+                            android:id="@+id/hdCommentsHoD_admin_pr_hl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="8dip"
+                            android:text="HoD Comments: "
+                            android:textColor="@color/DarkerGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Space
+                            android:id="@+id/spaceHLPr"
+                            android:layout_width="336dp"
+                            android:layout_height="100dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hdCommentsHoD_admin_pr_hl" />
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.constraint.ConstraintLayout>
+            </ScrollView>
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bnv_admin_pr_hl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/LighterGray"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView4pr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/scrollView4pr"
+                app:layout_constraintTop_toTopOf="@+id/scrollView4pr"
+                app:layout_constraintVertical_bias="0.83"
+                app:menu="@menu/hod_leave_bottom_menu">
+
+            </android.support.design.widget.BottomNavigationView>
+        </android.support.constraint.ConstraintLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

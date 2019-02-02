@@ -173,9 +173,12 @@ public class AdminHLFragment extends BackableFragment {
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bundle.putString( "HLKey", HLKey);
+                        bundle.putString( "HLPrKey", HLKey);
                         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
+                        AdminProcessedHL adminProcessedHL = new AdminProcessedHL();
+                        adminProcessedHL.setArguments(bundle);
+                        fragmentTransaction.add(R.id.admin_hl_frame, adminProcessedHL)
+                                .addToBackStack(null).commit();
                     }});
             }
 
