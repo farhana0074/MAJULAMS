@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 
 
-public class AdminPendingFL extends Fragment {
+public class AdminPendingFL extends BackableFragment {
 
 
     public AdminPendingFL() {
@@ -24,5 +24,12 @@ public class AdminPendingFL extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hod_full_leaves, container, false);
 
         return view;
+    }
+
+    @Override
+    public void onBackButtonPressed() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.remove(AdminPendingFL.this).commit();
+
     }
 }

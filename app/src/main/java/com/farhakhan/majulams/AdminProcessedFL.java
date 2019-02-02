@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdminProcessedFL extends Fragment {
+public class AdminProcessedFL extends BackableFragment {
 
 
     public AdminProcessedFL() {
@@ -34,4 +34,10 @@ public class AdminProcessedFL extends Fragment {
         return view;
     }
 
+    @Override
+    public void onBackButtonPressed() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.remove(AdminProcessedFL.this).commit();
+
+    }
 }

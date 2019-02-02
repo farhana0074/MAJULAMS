@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class AdminProcessedLWP extends Fragment {
+public class AdminProcessedLWP extends BackableFragment {
 
 
     public AdminProcessedLWP() {
@@ -28,4 +28,10 @@ public class AdminProcessedLWP extends Fragment {
         return view;
     }
 
+    @Override
+    public void onBackButtonPressed() {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.remove(AdminProcessedLWP.this).commit();
+
+    }
 }
