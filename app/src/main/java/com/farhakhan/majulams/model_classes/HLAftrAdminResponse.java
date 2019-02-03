@@ -5,7 +5,9 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HLEmpHistory {
+public class HLAftrAdminResponse {
+    public HLAftrAdminResponse() {
+    }
 
     public String LeaveType;
     public String LeaveDate;
@@ -16,27 +18,28 @@ public class HLEmpHistory {
     public String LeaveApplyingDate;
     public String LeaveApplyingTime;
     public String LeaveApprovalStatus;
+    public String AdminApproval;
 
-    public HLEmpHistory() {}
-
-    public HLEmpHistory(String leaveType, String leaveDate, String leaveBegnTime, String leaveEndnTime,
-                        String howToCover, String commentsOpt, String leaveApplyingDate,
-                        String leaveApplyingTime, String leaveApprovalStatus) {
-
+    public HLAftrAdminResponse(String leaveType, String leaveDate, String leaveBeginningTime,
+                               String leaveEndingTime, String howToCover, String commentsOpt,
+                               String leaveApplyingDate, String leaveApplyingTime, String leaveApprovalStatus,
+                               String adminApproval) {
         LeaveType = leaveType;
         LeaveDate = leaveDate;
-        LeaveBeginningTime = leaveBegnTime;
-        LeaveEndingTime = leaveEndnTime;
+        LeaveBeginningTime = leaveBeginningTime;
+        LeaveEndingTime = leaveEndingTime;
         HowToCover = howToCover;
         CommentsOpt = commentsOpt;
         LeaveApplyingDate = leaveApplyingDate;
         LeaveApplyingTime = leaveApplyingTime;
         LeaveApprovalStatus = leaveApprovalStatus;
+        AdminApproval = adminApproval;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("AdminApproval", AdminApproval);
         result.put("LeaveType", LeaveType);
         result.put("LeaveDate", LeaveDate);
         result.put("LeaveBeginningTime", LeaveBeginningTime);

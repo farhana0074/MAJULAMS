@@ -566,6 +566,12 @@ public class FacultyMainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_history) {
 
+            Fragment facultyLeaveHistory = new FacultyLeaveHistory();
+            facultyLeaveHistory.setArguments(bundle);
+            transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.container_faculty, facultyLeaveHistory)
+                    .addToBackStack(null).commit();
+
         }
 
 

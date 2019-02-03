@@ -365,7 +365,6 @@
                             app:layout_constraintStart_toEndOf="@+id/hdAppTime_admin_pnd_hl"
                             app:layout_constraintTop_toTopOf="@+id/hdAppTime_admin_pnd_hl" />
 
-
                         <Space
                             android:id="@+id/space"
                             android:layout_width="0dp"
@@ -379,7 +378,6 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/hdAppTime_admin_pnd_hl" />
-
 
                     </android.support.constraint.ConstraintLayout>
                 </android.support.constraint.ConstraintLayout>

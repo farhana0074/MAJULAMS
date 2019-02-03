@@ -55,7 +55,8 @@ public class AdminSLFragment extends BackableFragment {
     public static final String MY_SHARED_PREFERENCES = "MySharedPrefs";
     public static final String Faculty = "FacKey";
     public static final String Department = "DepKey";
-    String strFaculty, strDepartment,  strAppDateTimeOutSL, strAppDateTimeInSL;
+    public static final String CurrYear = "CurrYearKey";
+    String strFaculty, strDepartment,  strAppDateTimeOutSL, strAppDateTimeInSL, currentYear;
     Date ApplyingDateTimeSL;
     private TextView tvNoLeaves;
 
@@ -70,8 +71,14 @@ public class AdminSLFragment extends BackableFragment {
         sharedPreferences = getContext().getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         strFaculty = sharedPreferences.getString(Faculty, null);
         strDepartment = sharedPreferences.getString(Department, null);
+        currentYear = sharedPreferences.getString(CurrYear, null);
 
         tvNoLeaves = view.findViewById(R.id.tv_no_leave_adminSL);
+        final Bundle bundle = new Bundle();
+        bundle.putString("strFaculty",strFaculty);
+        bundle.putString("strDepartment",strDepartment);
+        bundle.putString("currentYear", currentYear);
+
         final Query UserInfo = mDbReference.child("Users").child("Faculty");
 
         final SimpleDateFormat AppDateTimeOutFormat = new SimpleDateFormat("dd MMM, yyyy | EEEE | h:mm a");
@@ -156,10 +163,16 @@ public class AdminSLFragment extends BackableFragment {
 
                 holder.tvHodApprovalLPr.setText("HoD Approval:  "+ model.HoDApproval);
 
-                final String LWPKey = this.getRef(position).getKey();
+                final String SLKey = this.getRef(position).getKey();
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        bundle.putString( "SLPrKey", SLKey);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        AdminProcessedSL adminProcessedSL = new AdminProcessedSL();
+                        adminProcessedSL.setArguments(bundle);
+                        fragmentTransaction.add(R.id.admin_sl_frame, adminProcessedSL)
+                                .addToBackStack(null).commit();
 
                     }
                 });
@@ -253,11 +266,16 @@ public class AdminSLFragment extends BackableFragment {
                 } catch (ParseException e) { e.printStackTrace(); }
 
                 holder.tvLeaveApplyingTimeLPnd.setText("Applied: "+" " + strAppDateTimeOutSL);
-                final String LWPKey = this.getRef(position).getKey();
+                final String SLKey = this.getRef(position).getKey();
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        bundle.putString("SLPndKey",SLKey);
+                        AdminPendingSL adminPendingSL = new AdminPendingSL();
+                        adminPendingSL.setArguments(bundle);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.admin_sl_frame, adminPendingSL)
+                                .addToBackStack(null).commit();
                     }
                 });
 
@@ -280,6 +298,7 @@ public class AdminSLFragment extends BackableFragment {
 
     @Override
     public void onStart() {
+        viewNoLeaves();
         recyclerAdapterLPrSL.startListening();
         recyclerAdapterLPndSL.startListening();
         super.onStart();

@@ -50,7 +50,8 @@ public class AdminLWPFragment extends BackableFragment {
     public static final String MY_SHARED_PREFERENCES = "MySharedPrefs";
     public static final String Faculty = "FacKey";
     public static final String Department = "DepKey";
-    String strFaculty, strDepartment,  strAppDateTimeOutLWP, strAppDateTimeInLWP;
+    public static final String CurrYear = "CurrYearKey";
+    String strFaculty, strDepartment,  strAppDateTimeOutLWP, strAppDateTimeInLWP, currentYear;
     Date ApplyingDateTimeLWP;
     private TextView tvNoLeaves;
 
@@ -59,7 +60,7 @@ public class AdminLWPFragment extends BackableFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_admin_lwp_n_sl, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_lwp, container, false);
 
         mFirebaseDb=FirebaseDatabase.getInstance();
         mDbReference=mFirebaseDb.getReference();
@@ -67,8 +68,15 @@ public class AdminLWPFragment extends BackableFragment {
         sharedPreferences = getContext().getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         strFaculty = sharedPreferences.getString(Faculty, null);
         strDepartment = sharedPreferences.getString(Department, null);
+        currentYear = sharedPreferences.getString(CurrYear, null);
 
         tvNoLeaves = view.findViewById(R.id.tv_no_leave_adminLWP);
+
+        final Bundle bundle = new Bundle();
+        bundle.putString("strFaculty",strFaculty);
+        bundle.putString("strDepartment",strDepartment);
+        bundle.putString("currentYear", currentYear);
+
         final Query UserInfo = mDbReference.child("Users").child("Faculty");
 
         final SimpleDateFormat AppDateTimeOutFormat = new SimpleDateFormat("dd MMM, yyyy | EEEE | h:mm a");
@@ -157,7 +165,12 @@ public class AdminLWPFragment extends BackableFragment {
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        bundle.putString( "LWPPrKey", LWPKey);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        AdminProcessedLWP adminProcessedLWP = new AdminProcessedLWP();
+                        adminProcessedLWP.setArguments(bundle);
+                        fragmentTransaction.add(R.id.admin_lwp_frame, adminProcessedLWP)
+                                .addToBackStack(null).commit();
                     }
                 });
 
@@ -254,7 +267,12 @@ public class AdminLWPFragment extends BackableFragment {
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        bundle.putString("LWPPndKey", LWPKey);
+                        AdminPendingLWP adminPendingLWP = new AdminPendingLWP();
+                        adminPendingLWP.setArguments(bundle);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.admin_lwp_frame, adminPendingLWP)
+                                .addToBackStack(null).commit();
                     }
                 });
 
@@ -277,6 +295,7 @@ public class AdminLWPFragment extends BackableFragment {
 
     @Override
     public void onStart() {
+        viewNoLeaves();
         recyclerAdapterLPrLWP.startListening();
         recyclerAdapterLPndLWP.startListening();
         super.onStart();

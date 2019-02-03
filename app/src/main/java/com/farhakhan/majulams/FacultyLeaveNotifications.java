@@ -57,7 +57,7 @@ public class FacultyLeaveNotifications extends BackableFragment {
        final View view = inflater.inflate(R.layout.fragment_faculty_leave_notifications, container, false);
         mFirebaseDb=FirebaseDatabase.getInstance();
         mDbReference=mFirebaseDb.getReference();
-       Bundle bundle = getArguments();
+       final Bundle bundle = getArguments();
 
        if(bundle!= null) {
            person_email = bundle.getString("EmailID");
@@ -71,7 +71,7 @@ public class FacultyLeaveNotifications extends BackableFragment {
            final SimpleDateFormat AppDateTimeInFormat = new SimpleDateFormat("yyyy-MM-dd, h:mm");
 
 
-           Query queryLeavesMain= mDbReference.child(empFaculty).child(empDepartment).child(empDomain)
+           final Query queryLeavesMain= mDbReference.child(empFaculty).child(empDepartment).child(empDomain)
                    .child(person_email).child("LeavesHistory");
 
            mRecyclerViewHL = view.findViewById(R.id.recycler_view_hl_notif);
@@ -79,6 +79,7 @@ public class FacultyLeaveNotifications extends BackableFragment {
            mRecyclerViewHL.setLayoutManager(mLayoutManagerHL);
            Query queryHL= ((DatabaseReference) queryLeavesMain).child("HalfLeaves").orderByChild("Seen")
                    .equalTo("No");
+
 
            FirebaseRecyclerOptions<HLEmpHistory> optionsHL = new FirebaseRecyclerOptions.Builder<HLEmpHistory>()
                    .setQuery(queryHL, HLEmpHistory.class)
@@ -110,7 +111,20 @@ public class FacultyLeaveNotifications extends BackableFragment {
                    holder.view.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View v) {
-
+                           Bundle bundle1 = new Bundle();
+                           String TAG = "HL";
+                           bundle1.putString("TAG", TAG);
+                           bundle1.putString("empFaculty",empFaculty);
+                           bundle1.putString("person_email",person_email);
+                           bundle1.putString("empDepartment",empDepartment);
+                           bundle1.putString("empDomain",empDomain);
+                           FacultyHistoryDetails facultyHistoryDetails = new FacultyHistoryDetails();
+                           facultyHistoryDetails.setArguments(bundle1);
+                           FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                           fragmentTransaction.add(R.id.container_faculty, facultyHistoryDetails)
+                                   .addToBackStack(null).commit();
+                           ((DatabaseReference) queryLeavesMain).child("HalfLeaves").child(HLKey)
+                                   .child("Seen").setValue("Yes");
                        }
                    });
                }
@@ -163,6 +177,20 @@ public class FacultyLeaveNotifications extends BackableFragment {
                    holder.view.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View v) {
+                           Bundle bundle1 = new Bundle();
+                           String TAG = "FL";
+                           bundle1.putString("TAG", TAG);
+                           bundle1.putString("empFaculty",empFaculty);
+                           bundle1.putString("person_email",person_email);
+                           bundle1.putString("empDepartment",empDepartment);
+                           bundle1.putString("empDomain",empDomain);
+                           FacultyHistoryDetails facultyHistoryDetails = new FacultyHistoryDetails();
+                           facultyHistoryDetails.setArguments(bundle1);
+                           FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                           fragmentTransaction.add(R.id.container_faculty, facultyHistoryDetails)
+                                   .addToBackStack(null).commit();
+                           ((DatabaseReference) queryLeavesMain).child("FullLeaves").child(FLKey)
+                                   .child("Seen").setValue("Yes");
                            }
                    }); }
 
@@ -213,6 +241,21 @@ public class FacultyLeaveNotifications extends BackableFragment {
                    holder.view.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View v) {
+                           Bundle bundle1 = new Bundle();
+                           String TAG = "LWP";
+                           bundle1.putString("TAG", TAG);
+                           bundle1.putString("empFaculty",empFaculty);
+                           bundle1.putString("person_email",person_email);
+                           bundle1.putString("empDepartment",empDepartment);
+                           bundle1.putString("empDomain",empDomain);
+                           FacultyHistoryDetails facultyHistoryDetails = new FacultyHistoryDetails();
+                           facultyHistoryDetails.setArguments(bundle1);
+                           FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                           fragmentTransaction.add(R.id.container_faculty, facultyHistoryDetails)
+                                   .addToBackStack(null).commit();
+                           ((DatabaseReference) queryLeavesMain).child("LeavesWithoutPay").child(LWPKey)
+                                   .child("Seen").setValue("Yes");
+
                        }});
                }
 
@@ -264,6 +307,20 @@ public class FacultyLeaveNotifications extends BackableFragment {
                    holder.view.setOnClickListener(new View.OnClickListener() {
                        @Override
                        public void onClick(View v) {
+                           Bundle bundle1 = new Bundle();
+                           String TAG = "SL";
+                           bundle1.putString("TAG", TAG);
+                           bundle1.putString("empFaculty",empFaculty);
+                           bundle1.putString("person_email",person_email);
+                           bundle1.putString("empDepartment",empDepartment);
+                           bundle1.putString("empDomain",empDomain);
+                           FacultyHistoryDetails facultyHistoryDetails = new FacultyHistoryDetails();
+                           facultyHistoryDetails.setArguments(bundle1);
+                           FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                           fragmentTransaction.add(R.id.container_faculty, facultyHistoryDetails)
+                                   .addToBackStack(null).commit();
+                           ((DatabaseReference) queryLeavesMain).child("SummerLeaves").child(SLKey)
+                                   .child("Seen").setValue("Yes");
 
                        }
                    });
@@ -288,7 +345,7 @@ public class FacultyLeaveNotifications extends BackableFragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        viewNoNotifs();
         mFirebaseAdapterHL.startListening();
         mFirebaseAdapterFL.startListening();
         mFirebaseAdapterLWP.startListening();

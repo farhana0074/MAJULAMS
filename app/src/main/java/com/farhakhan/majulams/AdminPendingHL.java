@@ -74,8 +74,8 @@ public class AdminPendingHL extends BackableFragment {
         final SimpleDateFormat TimeInFormat = new SimpleDateFormat("HH:mm");
         final SimpleDateFormat TimeOutFormat = new SimpleDateFormat("h:mm a");
 
-        final Query queryHLNode = mDbReference.child(empFaculty).child(empDepartment).child("EmployeeLeaves").child("HalfLeaves")
-                .child(HLKey);
+        final Query queryHLNode = mDbReference.child(empFaculty).child(empDepartment)
+                .child("EmployeeLeaves").child("HalfLeaves").child(HLKey);
         queryHLNode.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -261,6 +261,7 @@ public class AdminPendingHL extends BackableFragment {
                                            public void onDataChange(@NonNull DataSnapshot dataSnapshotStatus) {
                                                if(dataSnapshotStatus!=null)
                                                {
+
                                                    totalHL = ((long) dataSnapshotStatus.getValue());
                                                    updatedHL = totalHL+1;
                                                    ((DatabaseReference) queryHLStatus).setValue(updatedHL);

@@ -49,7 +49,8 @@ public class AdminFLFragment extends BackableFragment {
     public static final String MY_SHARED_PREFERENCES = "MySharedPrefs";
     public static final String Faculty = "FacKey";
     public static final String Department = "DepKey";
-    String strFaculty, strDepartment,  strAppDateTimeOutFL, strAppDateTimeInFL;
+    public static final String CurrYear = "CurrYearKey";
+    String strFaculty, strDepartment,  strAppDateTimeOutFL, strAppDateTimeInFL, currentYear;
     Date ApplyingDateTimeFL;
     private TextView tvNoLeaves;
 
@@ -65,8 +66,15 @@ public class AdminFLFragment extends BackableFragment {
         sharedPreferences = getContext().getSharedPreferences(MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         strFaculty = sharedPreferences.getString(Faculty, null);
         strDepartment = sharedPreferences.getString(Department, null);
+        currentYear = sharedPreferences.getString(CurrYear, null);
 
         tvNoLeaves = view.findViewById(R.id.tv_no_leave_adminFL);
+
+        final Bundle bundle = new Bundle();
+        bundle.putString("strFaculty",strFaculty);
+        bundle.putString("strDepartment",strDepartment);
+        bundle.putString("currentYear", currentYear);
+
         final Query UserInfo = mDbReference.child("Users").child("Faculty");
 
         final SimpleDateFormat AppDateTimeOutFormat = new SimpleDateFormat("dd MMM, yyyy | EEEE | h:mm a");
@@ -159,7 +167,12 @@ public class AdminFLFragment extends BackableFragment {
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        bundle.putString( "FLPrKey", FLKey);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        AdminProcessedFL adminProcessedFL = new AdminProcessedFL();
+                        adminProcessedFL.setArguments(bundle);
+                        fragmentTransaction.add(R.id.admin_fl_frame, adminProcessedFL)
+                                .addToBackStack(null).commit();
                     }
                 });
             }
@@ -255,11 +268,16 @@ public class AdminFLFragment extends BackableFragment {
 
                 holder.tvLeaveApplyingTimeLPnd.setText("Applied: "+" " + strAppDateTimeOutFL);
 
-                final String FLKey = this.getRef(position).getKey();
+                final String FLPndKey = this.getRef(position).getKey();
                 holder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        bundle.putString("FLPndKey", FLPndKey);
+                        AdminPendingFL adminPendingFL = new AdminPendingFL();
+                        adminPendingFL.setArguments(bundle);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.add(R.id.admin_fl_frame, adminPendingFL)
+                                .addToBackStack(null).commit();
                     }
                 });
             }
@@ -282,6 +300,7 @@ public class AdminFLFragment extends BackableFragment {
 
     @Override
     public void onStart() {
+        viewNoLeaves();
         recyclerAdapterLPrFL.startListening();
         recyclerAdapterLPndFL.startListening();
         super.onStart();

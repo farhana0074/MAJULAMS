@@ -26,7 +26,6 @@ public class SummerLeavesFragment extends BackableFragment implements
             outFormattedDateToday, strdateBefore10days;
     String person_email, person_name, person_pic, empFaculty, empDepartment, empDomain, empDesignation;
     String TAG = "SummerLeaves";
-    String strSBDate, strSEDate;
     Date dateFrom, dateTill, dateBefore10days;
     SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat outFormat = new SimpleDateFormat("dd MMM, yyyy");

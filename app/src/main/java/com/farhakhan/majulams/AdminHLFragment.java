@@ -302,6 +302,7 @@ public class AdminHLFragment extends BackableFragment {
 
     @Override
     public void onStart() {
+        viewNoLeaves();
        recyclerAdapterLPr.startListening();
        recyclerAdapterLPnd.startListening();
         super.onStart();
